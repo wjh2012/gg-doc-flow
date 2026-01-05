@@ -1,0 +1,17 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: gg-doc-flow-redis
+    ports:
+      - "6379:6379"
+    command: >
+      redis-server
+      --appendonly yes
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  redis_data:
