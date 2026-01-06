@@ -1,8 +1,25 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
-  "compilerOptions": {
-    "deleteOutDir": true
+  "monorepo": true,
+  "projects": {
+    "doc-flow-api": {
+      "type": "application",
+      "root": "apps/doc-flow-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/doc-flow-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/doc-flow-api/tsconfig.app.json"
+      }
+    },
+    "doc-flow-worker": {
+      "type": "application",
+      "root": "apps/doc-flow-worker",
+      "entryFile": "main",
+      "sourceRoot": "apps/doc-flow-worker/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/doc-flow-worker/tsconfig.app.json"
+      }
+    }
   }
 }

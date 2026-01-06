@@ -1,17 +1,14 @@
-services:
-  redis:
-    image: redis:latest
-    container_name: gg-doc-flow-redis
-    ports:
-      - "6379:6379"
-    command: >
-      redis-server
-      --appendonly yes
-    environment:
-      - TZ=Asia/Seoul
-    volumes:
-      - redis_data:/data
-    restart: unless-stopped
+version: '3'
 
-volumes:
-  redis_data:
+services:
+  doc-flow-api:
+    build:
+      context: .
+      dockerfile: ./apps/doc-flow-api/Dockerfile
+    ports:
+      - '3000:3000'
+
+  doc-flow-worker:
+    build:
+      context: .
+      dockerfile: ./apps/doc-flow-worker/Dockerfile
