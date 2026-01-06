@@ -10,7 +10,14 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     DatabaseModule,
     CacheModule.register(),
     ClientsModule.register([
-      { name: 'MATH_SERVICE', transport: Transport.TCP },
+      {
+        name: 'MATH_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: '127.0.0.1',
+          port: 4001,
+        },
+      },
     ]),
   ],
   controllers: [AppController],

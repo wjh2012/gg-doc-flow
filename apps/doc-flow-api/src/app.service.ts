@@ -9,4 +9,15 @@ export class AppService {
     return 'Hello World!';
   }
 
+  test(): void {
+    const payload = {
+      message: 'hello',
+      timestamp: Date.now(),
+    };
+
+    console.log('start');
+
+    this.client.emit('test_event', payload);
+    console.log('이벤트를 성공적으로 전송했습니다.');
+  }
 }
