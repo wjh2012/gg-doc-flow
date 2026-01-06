@@ -3,7 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './infra/database/database.module';
 import { CacheModule } from '@nestjs/cache-manager';
+import { BullModule } from '@nestjs/bullmq';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { TaskService } from './task/task.service';
+import { TaskController } from './task/task.controller';
+import { DocFlowQueueModule } from './infra/message/doc-flow-queue.module';
 
 @Module({
   imports: [
@@ -11,16 +15,23 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     CacheModule.register(),
     ClientsModule.register([
       {
-        name: 'MATH_SERVICE',
+        name: 'hello_tcp',
         transport: Transport.TCP,
         options: {
-          host: '127.0.0.1',
+          host: 'localhost',
           port: 4001,
         },
       },
     ]),
+    BullModule.forRoot({
+      connection: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
+    DocFlowQueueModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, TaskController],
+  providers: [AppService, TaskService],
 })
 export class AppModule {}

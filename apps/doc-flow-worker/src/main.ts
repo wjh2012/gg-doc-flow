@@ -4,10 +4,10 @@ import { DocFlowWorkerModule } from './doc-flow-worker.module';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice(DocFlowWorkerModule, {
-    transport: Transport.TCP,
+    transport: Transport.REDIS,
     options: {
-      host: '127.0.0.1',
-      port: 4001,
+      host: 'localhost',
+      port: 6379,
     },
   });
   await app.listen();

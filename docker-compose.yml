@@ -1,14 +1,13 @@
-version: '3'
-
 services:
-  doc-flow-api:
-    build:
-      context: .
-      dockerfile: ./apps/doc-flow-api/Dockerfile
+  redis:
+    image: redis:latest
+    container_name: redis
     ports:
-      - '3000:3000'
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
 
-  doc-flow-worker:
-    build:
-      context: .
-      dockerfile: ./apps/doc-flow-worker/Dockerfile
+volumes:
+  redis-data:
