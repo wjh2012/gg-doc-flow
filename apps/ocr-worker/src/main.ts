@@ -21,6 +21,8 @@ async function bootstrap() {
   });
 
   console.log('Worker started');
+
+  setInterval(() => {}, 1000 * 60 * 60);
 }
 
 bootstrap();

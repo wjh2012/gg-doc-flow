@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
+import { DatabaseModule } from '@app/database';
 import { DocFlowModule } from './worker/doc-flow.module';
 
 @Module({
@@ -10,6 +11,7 @@ import { DocFlowModule } from './worker/doc-flow.module';
         port: 6379,
       },
     }),
+    DatabaseModule,
     DocFlowModule,
   ],
   providers: [],

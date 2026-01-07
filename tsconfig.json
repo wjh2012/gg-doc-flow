@@ -23,6 +23,12 @@
     "noFallthroughCasesInSwitch": true,
     "strict": true,
     "paths": {
+      "@app/database": [
+        "libs/database/src"
+      ],
+      "@app/database/*": [
+        "libs/database/src/*"
+      ],
       "@app/shared": [
         "libs/shared/src"
       ],

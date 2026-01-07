@@ -8,6 +8,7 @@ export const KyselyProvider = {
   provide: KYSELY_DB,
   useFactory: () => {
     const sqlite = new BetterSqlite3('db.sqlite');
+    sqlite.pragma('journal_mode = WAL');
 
     return new Kysely<Database>({
       dialect: new SqliteDialect({

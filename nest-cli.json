@@ -3,6 +3,15 @@
   "collection": "@nestjs/schematics",
   "monorepo": true,
   "projects": {
+    "database": {
+      "type": "library",
+      "root": "libs/database",
+      "entryFile": "index",
+      "sourceRoot": "libs/database/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
+      }
+    },
     "doc-flow-api": {
       "type": "application",
       "root": "apps/doc-flow-api",

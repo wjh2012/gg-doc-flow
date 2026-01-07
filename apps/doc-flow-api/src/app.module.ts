@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from './infra/database/database.module';
+import { DatabaseModule } from '@app/database';
 import { CacheModule } from '@nestjs/cache-manager';
 import { BullModule } from '@nestjs/bullmq';
 import { TaskService } from './task/task.service';
@@ -21,4 +21,4 @@ import { TaskModule } from './task/task.module';
     DocFlowQueueModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

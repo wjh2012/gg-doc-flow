@@ -1,5 +1,5 @@
 import { DocFlowQueueModule } from '../infra/message/doc-flow-queue.module';
-import { DatabaseModule } from '../infra/database/database.module';
+import { DatabaseModule } from '@app/database';
 import { CacheModule } from '@nestjs/cache-manager';
 import { TaskService } from './task.service';
 import { Module } from '@nestjs/common';
@@ -19,4 +19,4 @@ import { TaskController } from './task.controller';
   ],
   controllers: [TaskController],
 })
-export class TaskModule {}
+export class TaskModule { }

@@ -11,17 +11,19 @@ export class TaskService {
 
   async publishTask() {
     const now = new Date().toISOString();
+    const id = crypto.randomUUID();
 
     await this.taskRepository.createTask({
-      id: crypto.randomUUID(),
+      id: id,
       task_type: 'OCR',
       status: 'PENDING',
       created_at: now,
     });
+
     console.log('save task');
 
     await this.queueProducer.createDocument({
-      docId: 'doc-123',
+      docId: id,
       userId: 'user-456',
       createdAt: now,
     });
