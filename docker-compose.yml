@@ -1,7 +1,17 @@
 services:
-  redis:
+  redis-message-queue:
     image: redis:latest
-    container_name: redis
+    container_name: redis-message-queue
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+
+  redis-cache:
+    image: redis:latest
+    container_name: redis-cache
     ports:
       - "6379:6379"
     volumes:

@@ -9,7 +9,11 @@ import { KyselyTaskCacheRepository } from './infra/kysely.task.cache.repository'
 import { TaskController } from './task.controller';
 
 @Module({
-  imports: [DocFlowQueueModule, DatabaseModule, CacheModule.register()],
+  imports: [
+    DocFlowQueueModule,
+    DatabaseModule,
+    CacheModule.register({ ttl: 3600000 }),
+  ],
   providers: [
     TaskService,
     {
@@ -19,4 +23,4 @@ import { TaskController } from './task.controller';
   ],
   controllers: [TaskController],
 })
-export class TaskModule { }
+export class TaskModule {}

@@ -5,7 +5,7 @@ import { Kysely } from 'kysely';
 
 @Injectable()
 export class KyselyTaskRepository implements ITaskRepository {
-  constructor(@Inject(KYSELY_DB) private readonly db: Kysely<Database>) { }
+  constructor(@Inject(KYSELY_DB) private readonly db: Kysely<Database>) {}
 
   async findTaskById(id: string): Promise<Task | undefined> {
     return await this.db
