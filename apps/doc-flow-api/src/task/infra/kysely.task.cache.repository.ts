@@ -63,4 +63,21 @@ export class KyselyTaskCacheRepository implements ITaskRepository {
 
     return deletedTask;
   }
+
+  async findTasksCreatedAfter(date: Date): Promise<Task[]> {
+    return await this.db
+      .selectFrom('task')
+      .selectAll()
+      .where('created_at', '>', date)
+      .execute();
+  }
+
+  async findRecentTasks(limit: number): Promise<Task[]> {
+    return await this.db
+      .selectFrom('task')
+      .selectAll()
+      .orderBy('created_at', 'desc')
+      .limit(limit)
+      .execute();
+  }
 }

@@ -5,7 +5,7 @@ import { Kysely } from 'kysely';
 
 @Injectable()
 export class KyselyTaskRepository implements ITaskRepository {
-  constructor(@Inject(KYSELY_DB) private readonly db: Kysely<Database>) {}
+  constructor(@Inject(KYSELY_DB) private readonly db: Kysely<Database>) { }
 
   async findTaskById(id: string): Promise<Task | undefined> {
     return await this.db
@@ -33,5 +33,22 @@ export class KyselyTaskRepository implements ITaskRepository {
       .where('id', '=', id)
       .returningAll()
       .executeTakeFirst();
+  }
+
+  async findTasksCreatedAfter(date: Date): Promise<Task[]> {
+    return await this.db
+      .selectFrom('task')
+      .selectAll()
+      .where('created_at', '>', date)
+      .execute();
+  }
+
+  async findRecentTasks(limit: number): Promise<Task[]> {
+    return await this.db
+      .selectFrom('task')
+      .selectAll()
+      .orderBy('created_at', 'desc')
+      .limit(limit)
+      .execute();
   }
 }

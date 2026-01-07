@@ -7,7 +7,7 @@ export class TaskService {
   constructor(
     private readonly taskRepository: ITaskRepository,
     private readonly queueProducer: DocFlowQueueProducer,
-  ) {}
+  ) { }
 
   async publishTask() {
     const now = new Date().toISOString();
@@ -29,5 +29,14 @@ export class TaskService {
     });
 
     console.log('Publishing task');
+  }
+
+  async getTasksLastHour() {
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+    return this.taskRepository.findTasksCreatedAfter(oneHourAgo);
+  }
+
+  async getRecentTasks(limit: number = 100) {
+    return this.taskRepository.findRecentTasks(limit);
   }
 }

@@ -5,4 +5,6 @@ export abstract class ITaskRepository {
   abstract createTask(data: NewTask): Promise<Task>;
   abstract updateTask(id: string, data: TaskUpdate): Promise<void>;
   abstract deleteTask(id: string): Promise<Task | undefined>;
+  abstract findTasksCreatedAfter(date: Date): Promise<Task[]>;
+  abstract findRecentTasks(limit: number): Promise<Task[]>;
 }
