@@ -2,25 +2,29 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { Injectable } from '@nestjs/common';
 
-export interface CreateDocJobPayload {
-  docId: string;
-  userId: string;
-}
+import { CreateDocJobPayload } from '@app/shared';
 
 @Injectable()
 export class DocFlowQueueProducer {
   constructor(
-    @InjectQueue('doc-flow')
+    @InjectQueue('ocr-flow')
     private readonly queue: Queue,
   ) {}
 
   async createDocument(payload: CreateDocJobPayload) {
-    await this.queue.add('create_document', payload, {
-      attempts: 3,
-      backoff: {
-        type: 'exponential',
-        delay: 3000,
-      },
-    });
+    console.log('Adding create_document job to queue:', payload);
+    try {
+      await this.queue.add('create_document', payload, {
+        attempts: 3,
+        backoff: {
+          type: 'exponential',
+          delay: 3000,
+        },
+      });
+      console.log('Successfully added create_document job to queue');
+    } catch (error) {
+      console.error('Failed to add create_document job to queue:', error);
+      throw error;
+    }
   }
 }

@@ -12,7 +12,7 @@ import { DocFlowQueueModule } from './infra/message/doc-flow-queue.module';
     CacheModule.register(),
     BullModule.forRoot({
       connection: {
-        host: 'localhost',
+        host: '127.0.0.1',
         port: 6379,
       },
     }),
@@ -21,4 +21,4 @@ import { DocFlowQueueModule } from './infra/message/doc-flow-queue.module';
   controllers: [TaskController],
   providers: [TaskService],
 })
-export class AppModule {}
+export class AppModule { }

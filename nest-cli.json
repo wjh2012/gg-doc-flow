@@ -12,14 +12,26 @@
         "tsConfigPath": "apps/doc-flow-api/tsconfig.app.json"
       }
     },
-    "doc-flow-worker": {
+    "ocr-worker": {
       "type": "application",
-      "root": "apps/doc-flow-worker",
+      "root": "apps/ocr-worker",
       "entryFile": "main",
-      "sourceRoot": "apps/doc-flow-worker/src",
+      "sourceRoot": "apps/ocr-worker/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/doc-flow-worker/tsconfig.app.json"
+        "tsConfigPath": "apps/ocr-worker/tsconfig.app.json"
+      }
+    },
+    "shared": {
+      "type": "library",
+      "root": "libs/shared",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/tsconfig.lib.json"
       }
     }
+  },
+  "compilerOptions": {
+    "webpack": true
   }
 }

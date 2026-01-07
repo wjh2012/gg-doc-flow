@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDocJobPayload } from '../../../doc-flow-api/src/infra/message/doc-flow-queue.producer';
+import { CreateDocJobPayload } from '@app/shared';
 
 @Injectable()
 export class DocFlowService {
