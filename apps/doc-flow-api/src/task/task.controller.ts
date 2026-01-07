@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, HttpCode } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { TaskService } from './task.service';
 
@@ -8,7 +8,9 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Get('test')
+  @HttpCode(202)
   async taskTest() {
     await this.taskService.publishTask();
+    return;
   }
 }
