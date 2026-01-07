@@ -11,7 +11,7 @@ import {
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
-export class KyselyTaskRepository implements ITaskRepository {
+export class KyselyTaskCacheRepository implements ITaskRepository {
   constructor(
     @Inject(KYSELY_DB) private readonly db: Kysely<Database>,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,

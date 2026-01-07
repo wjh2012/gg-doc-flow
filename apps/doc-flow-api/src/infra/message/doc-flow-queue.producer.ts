@@ -7,14 +7,14 @@ import { CreateDocJobPayload } from '@app/shared';
 @Injectable()
 export class DocFlowQueueProducer {
   constructor(
-    @InjectQueue('ocr-flow')
+    @InjectQueue('ocr-queue')
     private readonly queue: Queue,
   ) {}
 
   async createDocument(payload: CreateDocJobPayload) {
     console.log('Adding create_document job to queue:', payload);
     try {
-      await this.queue.add('create_document', payload, {
+      await this.queue.add('ocr', payload, {
         attempts: 3,
         backoff: {
           type: 'exponential',

@@ -3,7 +3,7 @@ import { DocFlowService } from './doc-flow.service';
 import { Job } from 'bullmq';
 import { CreateDocJobPayload } from '@app/shared';
 
-@Processor('ocr-flow')
+@Processor('ocr-queue')
 export class DocFlowWorker extends WorkerHost {
   constructor(private readonly docFlowService: DocFlowService) {
     super();

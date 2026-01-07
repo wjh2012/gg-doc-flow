@@ -5,10 +5,12 @@ import { BullModule } from '@nestjs/bullmq';
 import { TaskService } from './task/task.service';
 import { TaskController } from './task/task.controller';
 import { DocFlowQueueModule } from './infra/message/doc-flow-queue.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
     DatabaseModule,
+    TaskModule,
     CacheModule.register(),
     BullModule.forRoot({
       connection: {
@@ -18,7 +20,5 @@ import { DocFlowQueueModule } from './infra/message/doc-flow-queue.module';
     }),
     DocFlowQueueModule,
   ],
-  controllers: [TaskController],
-  providers: [TaskService],
 })
-export class AppModule { }
+export class AppModule {}

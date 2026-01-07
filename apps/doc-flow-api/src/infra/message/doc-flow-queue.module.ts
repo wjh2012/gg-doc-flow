@@ -6,10 +6,10 @@ import { DocFlowQueueProducer } from './doc-flow-queue.producer';
   imports: [
     BullModule.registerQueue(
       {
-        name: 'ocr-flow',
+        name: 'ocr-queue',
       },
       {
-        name: 'masking-flow',
+        name: 'masking-queue',
       },
     ),
   ],

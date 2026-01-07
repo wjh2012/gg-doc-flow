@@ -18,7 +18,7 @@ export interface TaskTable {
   payload: JSONColumnType<Record<string, unknown>> | null;
   result: JSONColumnType<Record<string, unknown>> | null;
 
-  created_at: ColumnType<Date, string, never>;
+  created_at: ColumnType<Date, string | undefined, never>;
   started_at: ColumnType<Date | null, string | undefined, string | undefined>;
   finished_at: ColumnType<Date | null, string | undefined, string | undefined>;
 
