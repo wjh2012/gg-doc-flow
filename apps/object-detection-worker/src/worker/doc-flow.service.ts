@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { CreateDocJobPayload } from '@app/shared';
-import { BaseWorkerService } from '@app/worker-common';
+import { CreateDocJobPayload } from '@app/common-types';
+import { BaseWorkerService } from '@app/common-worker';
 import { KYSELY_DB, WorkerDatabase } from '@app/database';
 import { Kysely } from 'kysely';
 import { ClientProxy } from '@nestjs/microservices';

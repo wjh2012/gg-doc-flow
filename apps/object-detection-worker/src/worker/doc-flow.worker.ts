@@ -1,7 +1,7 @@
 import { Processor, WorkerHost, OnWorkerEvent } from '@nestjs/bullmq';
 import { DocFlowService } from './doc-flow.service';
 import { Job } from 'bullmq';
-import { CreateDocJobPayload } from '@app/shared';
+import { CreateDocJobPayload } from '@app/common-types';
 
 @Processor('obd-queue')
 export class DocFlowWorker extends WorkerHost {

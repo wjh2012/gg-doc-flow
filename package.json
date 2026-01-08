@@ -86,7 +86,8 @@
     ],
     "moduleNameMapper": {
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
-      "^@app/shared(|/.*)$": "<rootDir>/libs/shared/src/$1"
+      "^@app/common-types(|/.*)$": "<rootDir>/libs/common-types/src/$1",
+      "^@app/common-worker(|/.*)$": "<rootDir>/libs/common-worker/src/$1"
     }
   }
 }

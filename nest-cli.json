@@ -42,22 +42,22 @@
         "tsConfigPath": "apps/ocr-worker/tsconfig.app.json"
       }
     },
-    "shared": {
+    "common-types": {
       "type": "library",
-      "root": "libs/shared",
+      "root": "libs/common-types",
       "entryFile": "index",
-      "sourceRoot": "libs/shared/src",
+      "sourceRoot": "libs/common-types/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/shared/tsconfig.lib.json"
+        "tsConfigPath": "libs/common-types/tsconfig.lib.json"
       }
     },
-    "worker-common": {
+    "common-worker": {
       "type": "library",
-      "root": "libs/worker-common",
+      "root": "libs/common-worker",
       "entryFile": "index",
-      "sourceRoot": "libs/worker-common/src",
+      "sourceRoot": "libs/common-worker/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/worker-common/tsconfig.lib.json"
+        "tsConfigPath": "libs/common-worker/tsconfig.lib.json"
       }
     }
   },

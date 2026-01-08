@@ -29,17 +29,17 @@
       "@app/database/*": [
         "libs/database/src/*"
       ],
-      "@app/shared": [
-        "libs/shared/src"
+      "@app/common-types": [
+        "libs/common-types/src"
       ],
-      "@app/shared/*": [
-        "libs/shared/src/*"
+      "@app/common-types/*": [
+        "libs/common-types/src/*"
       ],
-      "@app/worker-common": [
-        "libs/worker-common/src"
+      "@app/common-worker": [
+        "libs/common-worker/src"
       ],
-      "@app/worker-common/*": [
-        "libs/worker-common/src/*"
+      "@app/common-worker/*": [
+        "libs/common-worker/src/*"
       ]
     }
   }
