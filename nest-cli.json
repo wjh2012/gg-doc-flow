@@ -3,6 +3,33 @@
   "collection": "@nestjs/schematics",
   "monorepo": true,
   "projects": {
+    "common-logging": {
+      "type": "library",
+      "root": "libs/common-logging",
+      "entryFile": "index",
+      "sourceRoot": "libs/common-logging/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common-logging/tsconfig.lib.json"
+      }
+    },
+    "common-types": {
+      "type": "library",
+      "root": "libs/common-types",
+      "entryFile": "index",
+      "sourceRoot": "libs/common-types/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common-types/tsconfig.lib.json"
+      }
+    },
+    "common-worker": {
+      "type": "library",
+      "root": "libs/common-worker",
+      "entryFile": "index",
+      "sourceRoot": "libs/common-worker/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common-worker/tsconfig.lib.json"
+      }
+    },
     "database": {
       "type": "library",
       "root": "libs/database",
@@ -40,24 +67,6 @@
       "sourceRoot": "apps/ocr-worker/src",
       "compilerOptions": {
         "tsConfigPath": "apps/ocr-worker/tsconfig.app.json"
-      }
-    },
-    "common-types": {
-      "type": "library",
-      "root": "libs/common-types",
-      "entryFile": "index",
-      "sourceRoot": "libs/common-types/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/common-types/tsconfig.lib.json"
-      }
-    },
-    "common-worker": {
-      "type": "library",
-      "root": "libs/common-worker",
-      "entryFile": "index",
-      "sourceRoot": "libs/common-worker/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/common-worker/tsconfig.lib.json"
       }
     }
   },

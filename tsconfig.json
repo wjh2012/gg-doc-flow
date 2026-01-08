@@ -23,11 +23,11 @@
     "noFallthroughCasesInSwitch": true,
     "strict": true,
     "paths": {
-      "@app/database": [
-        "libs/database/src"
+      "@app/common-logging": [
+        "libs/common-logging/src"
       ],
-      "@app/database/*": [
-        "libs/database/src/*"
+      "@app/common-logging/*": [
+        "libs/common-logging/src/*"
       ],
       "@app/common-types": [
         "libs/common-types/src"
@@ -40,6 +40,12 @@
       ],
       "@app/common-worker/*": [
         "libs/common-worker/src/*"
+      ],
+      "@app/database": [
+        "libs/database/src"
+      ],
+      "@app/database/*": [
+        "libs/database/src/*"
       ]
     }
   }
