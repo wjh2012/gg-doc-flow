@@ -3,6 +3,7 @@ import { DocFlowQueueProducer } from '../infra/message/doc-flow-queue.producer';
 import { ITaskRepository } from './task.repository.interface';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TaskType } from '@app/database';
 
 export interface TaskStatusEvent {
   data: any;
@@ -21,28 +22,36 @@ export class TaskService {
     this.taskStatusSubject.next(task);
   }
 
-  async publishTask() {
+  async publishTask(type: TaskType = 'OCR') {
     const now = new Date().toISOString();
     const id = crypto.randomUUID();
 
     const task = await this.taskRepository.createTask({
       id: id,
-      task_type: 'OCR',
+      task_type: type,
       status: 'PENDING',
       created_at: now,
     });
 
     this.broadcastTaskStatus(task);
 
-    console.log('save task');
+    console.log(`save task [${type}]`);
 
-    await this.queueProducer.createDocument({
-      docId: id,
-      userId: 'user-456',
-      createdAt: now,
-    });
-
-    console.log('Publishing task');
+    if (type === 'OCR') {
+      await this.queueProducer.createOcrTask({
+        docId: id,
+        userId: 'user-456',
+        createdAt: now,
+      });
+      console.log('Publishing OCR task');
+    } else if (type === 'DETECTION') {
+      await this.queueProducer.createDetectionTask({
+        docId: id,
+        userId: 'user-456',
+        createdAt: now,
+      });
+      console.log('Publishing DETECTION task');
+    }
   }
 
   async getTasksLastHour() {

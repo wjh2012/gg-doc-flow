@@ -9,7 +9,7 @@ import { DocFlowQueueProducer } from './doc-flow-queue.producer';
         name: 'ocr-queue',
       },
       {
-        name: 'masking-queue',
+        name: 'obd-queue',
       },
     ),
   ],

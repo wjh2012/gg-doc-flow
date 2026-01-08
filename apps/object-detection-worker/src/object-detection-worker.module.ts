@@ -15,4 +15,4 @@ import { DocFlowModule } from './worker/doc-flow.module';
     DocFlowModule,
   ],
 })
-export class OcrWorkerModule {}
+export class ObjectDetectionWorkerModule {}

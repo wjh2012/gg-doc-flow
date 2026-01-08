@@ -9,10 +9,7 @@ import { TaskSseController } from './task.sse.controller';
 import { KyselyTaskRepository } from './infra/kysely.task.repository';
 
 @Module({
-  imports: [
-    DocFlowQueueModule,
-    DatabaseModule,
-  ],
+  imports: [DocFlowQueueModule, DatabaseModule],
   providers: [
     TaskService,
     {
@@ -22,4 +19,4 @@ import { KyselyTaskRepository } from './infra/kysely.task.repository';
   ],
   controllers: [TaskController, TaskSseController],
 })
-export class TaskModule { }
+export class TaskModule {}

@@ -6,7 +6,7 @@ import {
   Updateable,
 } from 'kysely';
 
-export type TaskType = 'OCR' | 'ANALYZE';
+export type TaskType = 'OCR' | 'ANALYZE' | 'DETECTION';
 export type TaskStatus = 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED';
 
 export interface TaskTable {

@@ -18,7 +18,19 @@
       "entryFile": "main",
       "sourceRoot": "apps/doc-flow-api/src",
       "compilerOptions": {
+        "assets": [
+          "views/**/*"
+        ],
         "tsConfigPath": "apps/doc-flow-api/tsconfig.app.json"
+      }
+    },
+    "object-detection-worker": {
+      "type": "application",
+      "root": "apps/object-detection-worker",
+      "entryFile": "main",
+      "sourceRoot": "apps/object-detection-worker/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/object-detection-worker/tsconfig.app.json"
       }
     },
     "ocr-worker": {
@@ -41,12 +53,6 @@
     }
   },
   "compilerOptions": {
-    "assets": [
-      {
-        "include": "apps/doc-flow-api/views/**/*",
-        "outDir": "dist/apps/doc-flow-api/views",
-        "watchAssets": true
-      }
-    ]
+    "webpack": true
   }
 }

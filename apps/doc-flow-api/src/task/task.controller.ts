@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Post,
   HttpCode,
   Query,
   DefaultValuePipe,
@@ -15,10 +16,17 @@ import { TaskService } from './task.service';
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
-  @Get('test')
+  @Post('ocr')
   @HttpCode(202)
-  async taskTest() {
-    await this.taskService.publishTask();
+  async createOcrTask() {
+    await this.taskService.publishTask('OCR');
+    return;
+  }
+
+  @Post('detection')
+  @HttpCode(202)
+  async createDetectionTask() {
+    await this.taskService.publishTask('DETECTION');
     return;
   }
 

@@ -14,7 +14,7 @@ async function bootstrap() {
   });
 
   // web-ui
-  app.useStaticAssets(join(process.cwd(), 'dist/apps/doc-flow-api/public'));
+  app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(process.cwd(), 'dist/apps/doc-flow-api/views'));
   app.setViewEngine('hbs');
 

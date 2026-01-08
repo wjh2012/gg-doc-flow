@@ -8,13 +8,15 @@ import { CreateDocJobPayload } from '@app/shared';
 export class DocFlowQueueProducer {
   constructor(
     @InjectQueue('ocr-queue')
-    private readonly queue: Queue,
+    private readonly ocrQueue: Queue,
+    @InjectQueue('obd-queue')
+    private readonly obdQueue: Queue,
   ) {}
 
-  async createDocument(payload: CreateDocJobPayload) {
+  async createOcrTask(payload: CreateDocJobPayload) {
     console.log('Adding create_document job to queue:', payload);
     try {
-      await this.queue.add('ocr', payload, {
+      await this.ocrQueue.add('ocr', payload, {
         attempts: 3,
         backoff: {
           type: 'exponential',
@@ -24,6 +26,23 @@ export class DocFlowQueueProducer {
       console.log('Successfully added create_document job to queue');
     } catch (error) {
       console.error('Failed to add create_document job to queue:', error);
+      throw error;
+    }
+  }
+
+  async createDetectionTask(payload: CreateDocJobPayload) {
+    console.log('Adding create_detection job to queue:', payload);
+    try {
+      await this.obdQueue.add('detection', payload, {
+        attempts: 3,
+        backoff: {
+          type: 'exponential',
+          delay: 3000,
+        },
+      });
+      console.log('Successfully added create_detection job to queue');
+    } catch (error) {
+      console.error('Failed to add create_detection job to queue:', error);
       throw error;
     }
   }
