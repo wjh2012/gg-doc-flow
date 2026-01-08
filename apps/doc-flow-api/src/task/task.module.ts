@@ -1,26 +1,25 @@
 import { DocFlowQueueModule } from '../infra/message/doc-flow-queue.module';
 import { DatabaseModule } from '@app/database';
-import { CacheModule } from '@nestjs/cache-manager';
 import { TaskService } from './task.service';
 import { Module } from '@nestjs/common';
 import { ITaskRepository } from './task.repository.interface';
-import { KyselyTaskCacheRepository } from './infra/kysely.task.cache.repository';
 
 import { TaskController } from './task.controller';
+import { TaskSseController } from './task.sse.controller';
+import { KyselyTaskRepository } from './infra/kysely.task.repository';
 
 @Module({
   imports: [
     DocFlowQueueModule,
     DatabaseModule,
-    CacheModule.register({ ttl: 3600000 }),
   ],
   providers: [
     TaskService,
     {
       provide: ITaskRepository,
-      useClass: KyselyTaskCacheRepository,
+      useClass: KyselyTaskRepository,
     },
   ],
-  controllers: [TaskController],
+  controllers: [TaskController, TaskSseController],
 })
-export class TaskModule {}
+export class TaskModule { }

@@ -1,19 +1,20 @@
 import { Injectable, Inject } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { CreateDocJobPayload } from '@app/shared';
 import { KYSELY_DB, WorkerDatabase, TaskStatus } from '@app/database';
 import { Kysely } from 'kysely';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import type { Cache } from 'cache-manager';
-
 @Injectable()
 export class DocFlowService {
   constructor(
     @Inject(KYSELY_DB) private readonly db: Kysely<WorkerDatabase>,
-    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+    @Inject('TASK_SERVICE') private readonly client: ClientProxy,
   ) {}
 
   async createDocument(data: CreateDocJobPayload) {
     console.log('Processing document...', data);
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     await this.updateJobStatus(data.docId, 'SUCCESS');
   }
 
@@ -26,7 +27,7 @@ export class DocFlowService {
       .executeTakeFirst();
 
     if (updatedTask) {
-      await this.cacheManager.set(`task:${id}`, updatedTask);
+      this.client.emit('task_status_updates', updatedTask);
     }
   }
 }

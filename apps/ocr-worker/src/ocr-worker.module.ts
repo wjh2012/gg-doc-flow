@@ -7,7 +7,7 @@ import { DocFlowModule } from './worker/doc-flow.module';
   imports: [
     BullModule.forRoot({
       connection: {
-        host: '127.0.0.1',
+        host: 'localhost',
         port: 6380,
       },
     }),

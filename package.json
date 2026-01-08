@@ -32,6 +32,7 @@
     "better-sqlite3": "^12.5.0",
     "bullmq": "^5.66.4",
     "cache-manager": "^7.2.7",
+    "hbs": "^4.2.0",
     "ioredis": "^5.9.0",
     "kysely": "^0.28.9",
     "reflect-metadata": "^0.2.2",

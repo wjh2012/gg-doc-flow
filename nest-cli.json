@@ -41,6 +41,12 @@
     }
   },
   "compilerOptions": {
-    "webpack": true
+    "assets": [
+      {
+        "include": "apps/doc-flow-api/views/**/*",
+        "outDir": "dist/apps/doc-flow-api/views",
+        "watchAssets": true
+      }
+    ]
   }
 }
