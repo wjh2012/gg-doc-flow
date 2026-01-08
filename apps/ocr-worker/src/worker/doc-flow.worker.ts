@@ -10,7 +10,7 @@ export class DocFlowWorker extends WorkerHost {
   }
 
   async process(job: Job<CreateDocJobPayload>) {
-    await this.docFlowService.createDocument(job.data);
+    await this.docFlowService.processTask(job.data);
   }
 
   @OnWorkerEvent('active')
