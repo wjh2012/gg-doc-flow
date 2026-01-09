@@ -4,6 +4,8 @@ import { BaseWorkerHost, WorkerProcessor } from '@app/common-worker';
 
 @WorkerProcessor(QUEUE_NAMES.OCR)
 export class DocFlowWorker extends BaseWorkerHost<CreateDocJobPayload> {
+  protected readonly queueName = QUEUE_NAMES.OCR;
+
   constructor(private readonly docFlowService: DocFlowService) {
     super();
   }

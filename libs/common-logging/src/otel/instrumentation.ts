@@ -10,6 +10,7 @@ import {
 import { SimpleLogRecordProcessor } from '@opentelemetry/sdk-logs';
 import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
+import { BullMQInstrumentation } from './bullmq-instrumentation';
 
 export function initInstrumentation(serviceName: string) {
   const sdk = new NodeSDK({
@@ -38,6 +39,7 @@ export function initInstrumentation(serviceName: string) {
       getNodeAutoInstrumentations({
         '@opentelemetry/instrumentation-fs': { enabled: false },
       }),
+      new BullMQInstrumentation(),
     ],
   });
 
