@@ -1,5 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
+import { CommonLoggerModule } from '@app/common-logging';
 
 @Module({
   imports: [
@@ -9,6 +10,7 @@ import { BullModule } from '@nestjs/bullmq';
         port: 6380,
       },
     }),
+    CommonLoggerModule,
   ],
 })
 export class CommonQueueModule {

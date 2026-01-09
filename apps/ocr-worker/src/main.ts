@@ -1,7 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { OcrWorkerModule } from './ocr-worker.module';
+import { Logger } from '@app/common-logging';
 
 async function bootstrap() {
-  const app = await NestFactory.createApplicationContext(OcrWorkerModule);
+  const app = await NestFactory.createApplicationContext(OcrWorkerModule, {
+    bufferLogs: true,
+  });
+  app.useLogger(app.get(Logger));
 }
 bootstrap();

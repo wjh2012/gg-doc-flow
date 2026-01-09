@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { CreateDocJobPayload } from '@app/common-types';
 import { KYSELY_DB, TaskStatus, WorkerDatabase } from '@app/database';
 import { Kysely } from 'kysely';
@@ -6,6 +6,8 @@ import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class DocFlowService implements OnModuleInit {
+  private readonly logger = new Logger(DocFlowService.name);
+
   constructor(
     @Inject(KYSELY_DB) protected readonly db: Kysely<WorkerDatabase>,
     @Inject('TASK_SERVICE') protected readonly client: ClientProxy,
@@ -20,10 +22,8 @@ export class DocFlowService implements OnModuleInit {
   }
 
   async processTask(data: CreateDocJobPayload) {
-    console.log('Processing document...', data);
-
+    this.logger.log(data.docId);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-
     await this.updateJobStatus(data.docId, 'SUCCESS');
   }
 
@@ -36,7 +36,6 @@ export class DocFlowService implements OnModuleInit {
       .executeTakeFirst();
 
     if (updatedTask) {
-      console.log(`Task ${id} updated to ${status}`);
       this.client.emit('task_status_updates', updatedTask);
     }
   }

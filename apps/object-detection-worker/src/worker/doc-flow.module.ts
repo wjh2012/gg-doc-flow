@@ -4,6 +4,7 @@ import { DocFlowWorker } from './doc-flow.worker';
 import { DocFlowService } from './doc-flow.service';
 import { DatabaseModule } from '@app/database';
 import { CommonQueueModule } from '@app/common-worker';
+import { CommonLoggerModule } from '@app/common-logging';
 import { QUEUE_NAMES } from '@app/common-types';
 
 @Module({
@@ -11,6 +12,7 @@ import { QUEUE_NAMES } from '@app/common-types';
     CommonQueueModule.register({
       name: QUEUE_NAMES.OBJECT_DETECTION,
     }),
+    CommonLoggerModule,
     DatabaseModule,
 
     // microservice publisher
