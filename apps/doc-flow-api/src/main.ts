@@ -1,3 +1,6 @@
+import { initInstrumentation } from '@app/common-logging/otel/instrumentation';
+initInstrumentation('doc-flow-api');
+
 import { RequestMethod } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -39,6 +42,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.startAllMicroservices();
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 9000);
 }
 bootstrap();

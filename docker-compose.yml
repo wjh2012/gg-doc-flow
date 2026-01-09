@@ -21,6 +21,18 @@ services:
     command: redis-server --appendonly yes
     restart: unless-stopped
 
+  lgtm:
+    image: grafana/otel-lgtm:latest
+    container_name: lgtm
+    ports:
+      - "3000:3000" # Grafana
+      - "4317:4317" # OTLP gRPC 수신
+      - "4318:4318" # OTLP HTTP 수신
+    environment:
+      - ENABLE_LOGS_ALL=true
+      - OTEL_METRIC_EXPORT_INTERVAL=5000 # 테스트용으로 빠르게 데이터 확인
+    restart: unless-stopped
+
 volumes:
   redis-bullmq-data:
   redis-event-data:
