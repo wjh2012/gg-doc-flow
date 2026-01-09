@@ -183,7 +183,6 @@
     try {
       const endpoint = type === 'OCR' ? '/api/task/ocr' : '/api/task/detection';
       await fetch(endpoint, { method: 'POST' });
-      console.log(`${type} Task creation requested`);
     } catch (e) {
       alert(`Failed to create ${type} task`);
     }
@@ -204,7 +203,6 @@
 
   eventSource.onmessage = (event) => {
     const task = JSON.parse(event.data);
-    console.log('Update received:', task);
     updateOrAddTask(task);
 
     // Highlight effect

@@ -35,22 +35,18 @@ export class TaskService {
 
     this.broadcastTaskStatus(task);
 
-    console.log(`save task [${type}]`);
-
     if (type === 'OCR') {
       await this.queueProducer.createOcrTask({
         docId: id,
         userId: 'user-456',
         createdAt: now,
       });
-      console.log('Publishing OCR task');
     } else if (type === 'DETECTION') {
       await this.queueProducer.createDetectionTask({
         docId: id,
         userId: 'user-456',
         createdAt: now,
       });
-      console.log('Publishing DETECTION task');
     }
   }
 

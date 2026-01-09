@@ -13,7 +13,6 @@ import { BullModule } from '@nestjs/bullmq';
 })
 export class CommonQueueModule {
   static register(options: { name: string }): DynamicModule {
-    console.log(`${options.name} registered`);
     return {
       module: CommonQueueModule,
       imports: [

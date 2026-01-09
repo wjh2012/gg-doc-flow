@@ -20,8 +20,6 @@ export class DocFlowService implements OnModuleInit {
   }
 
   async processTask(data: CreateDocJobPayload) {
-    console.log('Processing document...', data);
-
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     await this.updateJobStatus(data.docId, 'SUCCESS');
@@ -36,7 +34,6 @@ export class DocFlowService implements OnModuleInit {
       .executeTakeFirst();
 
     if (updatedTask) {
-      console.log(`Task ${id} updated to ${status}`);
       this.client.emit('task_status_updates', updatedTask);
     }
   }
