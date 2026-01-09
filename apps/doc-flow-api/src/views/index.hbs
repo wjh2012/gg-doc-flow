@@ -6,8 +6,9 @@
   <title>Task Dashboard</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding: 20px;
+      background-color: #fcfcfc;
     }
 
     .container {
@@ -18,8 +19,11 @@
     .controls {
       margin-bottom: 20px;
       padding: 20px;
-      background: #f5f5f5;
-      border-radius: 8px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
     }
 
     button {
@@ -27,119 +31,91 @@
       background: #007bff;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       margin-right: 10px;
+      font-weight: 600;
     }
 
-    button:hover {
-      background: #0056b3;
-    }
-
-    .task-container {
-      display: flex;
-      gap: 20px;
-    }
-
-    .task-column {
-      flex: 1;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 20px;
-    }
-
-    .task-column h2 {
-      margin-top: 0;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 10px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    th,
-    td {
-      padding: 10px;
-      border-bottom: 1px solid #eee;
-      text-align: left;
-      font-size: 0.9em;
-    }
-
-    th {
-      background-color: #f8f9fa;
-    }
-
-    .status-SUCCESS {
-      color: green;
-      font-weight: bold;
-    }
-
-    .status-PENDING {
-      color: orange;
-      font-weight: bold;
-    }
-
-    .status-FAILED {
-      color: red;
-      font-weight: bold;
-    }
-
+    /* 연결 상태 컨테이너 */
     #connection-status {
-      margin-left: 10px;
-      font-size: 0.9em;
-      color: green;
+      margin-left: 15px;
+      font-size: 0.95em;
+      display: flex;
     }
+
+    /* 개별 글자 기본 스타일 */
+    .wave-char {
+      display: inline-block;
+      font-weight: bold;
+      /* 진한 색이 기본이므로 불투명도 1.0 */
+      opacity: 1;
+      transition: opacity 0.5s;
+    }
+
+    /* 연결됨: 4초 주기로 은은하게 흐려지는 파도 */
+    .status-connected .wave-char {
+      color: #28a745;
+      animation: brightness-wave 4s infinite ease-in-out;
+    }
+
+    .status-disconnected .wave-char {
+      color: #dc3545;
+      opacity: 1;
+    }
+
+    /* 애니메이션: 1.0(진함) -> 0.4(흐림) -> 1.0(진함) */
+    @keyframes brightness-wave {
+      0%, 40%, 60%, 100% {
+        opacity: 1; /* 평소에는 진함 */
+        text-shadow: 0 0 2px rgba(40, 167, 69, 0.2); /* 은은한 기본 광택 */
+      }
+      50% {
+        opacity: 0.5; /* 파도가 지날 때 흐려짐 */
+        text-shadow: none;
+      }
+    }
+
+    /* 테이블 및 기타 스타일 */
+    .task-container { display: flex; gap: 20px; }
+    .task-column { flex: 1; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 12px 10px; border-bottom: 1px solid #f0f0f0; text-align: left; font-size: 0.9em; }
+    th { background-color: #f8f9fa; color: #666; }
+    .status-SUCCESS { color: #28a745; font-weight: bold; }
+    .status-PENDING { color: #fd7e14; font-weight: bold; }
+    .status-FAILED { color: #dc3545; font-weight: bold; }
   </style>
 </head>
 
 <body>
 <div class="container">
-  <h1>Task Dashboard</h1>
+  <h1>Task Management Dashboard</h1>
 
   <div class="controls">
     <button onclick="createTask('OCR')">Create OCR Task</button>
-    <button onclick="createTask('DETECTION')" style="background-color: #28a745;">Create Detection
-      Task
-    </button>
-    <span id="connection-status">Connecting to SSE...</span>
+    <button onclick="createTask('DETECTION')" style="background-color: #28a745;">Create Detection Task</button>
+    <div id="connection-status">Initializing...</div>
   </div>
 
   <div class="task-container">
-    <!-- OCR Column -->
     <div class="task-column">
       <h2>OCR Tasks</h2>
       <table>
         <thead>
-        <tr>
-          <th>ID</th>
-          <th>Status</th>
-          <th>Created At</th>
-        </tr>
+        <tr><th>ID</th><th>Status</th><th>Created At</th></tr>
         </thead>
-        <tbody id="ocr-list">
-        <!-- OCR Tasks -->
-        </tbody>
+        <tbody id="ocr-list"></tbody>
       </table>
     </div>
 
-    <!-- Detection Column -->
     <div class="task-column">
       <h2>Detection Tasks</h2>
       <table>
         <thead>
-        <tr>
-          <th>ID</th>
-          <th>Status</th>
-          <th>Created At</th>
-        </tr>
+        <tr><th>ID</th><th>Status</th><th>Created At</th></tr>
         </thead>
-        <tbody id="detection-list">
-        <!-- Detection Tasks -->
-        </tbody>
+        <tbody id="detection-list"></tbody>
       </table>
     </div>
   </div>
@@ -150,62 +126,50 @@
   const ocrList = document.getElementById('ocr-list');
   const detectionList = document.getElementById('detection-list');
 
-  // Initial Load (Recent 20 tasks)
+  function updateStatusText(text, isConnected) {
+    statusSpan.innerHTML = '';
+    statusSpan.className = isConnected ? 'status-connected' : 'status-disconnected';
+
+    text.split('').forEach((char, index) => {
+      const span = document.createElement('span');
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.className = 'wave-char';
+
+      if (isConnected) {
+        // 파도가 지나가는 간격 (0.15초)
+        span.style.animationDelay = `${index * 0.1}s`;
+      }
+
+      statusSpan.appendChild(span);
+    });
+  }
+
   async function loadRecentTasks() {
     try {
       const response = await fetch('/api/task/recent?limit=20');
       const tasks = await response.json();
-      // Reverse to show newest at top (updateOrAddTask uses insertBefore)
-      // Actually server usually returns newest first? Assuming newest first.
-      // updateOrAddTask prepends. So if we iterate newest first, they will be in reverse order.
-      // We should iterate oldest to newest to have newest at top?
-      // Or if server returns [Newest, ..., Oldest], and we prepend:
-      // 1. Newest -> Row1
-      // 2. 2nd Newest -> Row2, Row1
-      // Result: Oldest at top.
-      // We want Newest at top.
-      // Server logic: findRecentTasks usually order by desc.
-      // So tasks[0] is Newest.
-      // If we iterate tasks:
-      // Prepend tasks[0] -> List: [Task0]
-      // Prepend tasks[1] -> List: [Task1, Task0]
-      // Result: Oldest at top (TaskN... Task0).
-      // So we need to iterate in reverse (Oldest to Newest) OR append instead of prepend for initial load?
-      // Let's just iterate reverse for initial load.
       [...tasks].reverse().forEach(task => updateOrAddTask(task));
-    } catch (e) {
-      console.error('Failed to load recent tasks', e);
-    }
+    } catch (e) { console.error(e); }
   }
 
-  // Create Task
   async function createTask(type) {
-    try {
-      const endpoint = type === 'OCR' ? '/api/task/ocr' : '/api/task/detection';
-      await fetch(endpoint, { method: 'POST' });
-    } catch (e) {
-      alert(`Failed to create ${type} task`);
-    }
+    const endpoint = type === 'OCR' ? '/api/task/ocr' : '/api/task/detection';
+    await fetch(endpoint, { method: 'POST' });
   }
 
-  // SSE Connection
   const eventSource = new EventSource('/api/task/sse');
 
   eventSource.onopen = () => {
-    statusSpan.textContent = 'Connected to Real-time Stream';
-    statusSpan.style.color = 'green';
+    updateStatusText('● Connected to Real-time Stream', true);
   };
 
   eventSource.onerror = () => {
-    statusSpan.textContent = 'Connection Lost (Reconnecting...)';
-    statusSpan.style.color = 'red';
+    updateStatusText('● Connection Lost (Reconnecting...)', false);
   };
 
   eventSource.onmessage = (event) => {
     const task = JSON.parse(event.data);
     updateOrAddTask(task);
-
-    // Highlight effect
     const row = document.getElementById(`row-${task.id}`);
     if (row) {
       row.style.backgroundColor = '#e8f5e9';
@@ -216,25 +180,18 @@
   function updateOrAddTask(task) {
     const list = task.task_type === 'DETECTION' ? detectionList : ocrList;
     const existingRow = document.getElementById(`row-${task.id}`);
-
     const html = `
-                <td>${task.id.substring(0, 8)}...</td>
-                <td class="status-${task.status}">${task.status}</td>
-                <td>${new Date(task.created_at).toLocaleString()}</td>
-            `;
+      <td><strong>${task.id.substring(0, 8)}</strong></td>
+      <td class="status-${task.status}">${task.status}</td>
+      <td>${new Date(task.created_at).toLocaleString()}</td>
+    `;
 
     if (existingRow) {
-      existingRow.innerHTML = html;
-      // Move logic? If row exists, update it. It might be in the wrong list if type changed?
-      // Type shouldn't change.
-      // But just in case, ensure it is in the correct list?
-      // Assuming type doesn't change.
       existingRow.innerHTML = html;
     } else {
       const row = document.createElement('tr');
       row.id = `row-${task.id}`;
       row.innerHTML = html;
-      // Prepend to show newest first
       list.insertBefore(row, list.firstChild);
     }
   }
@@ -242,5 +199,4 @@
   loadRecentTasks();
 </script>
 </body>
-
 </html>
