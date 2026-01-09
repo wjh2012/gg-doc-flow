@@ -5,4 +5,4 @@ import { KYSELY_DB, KyselyProvider } from './kysely.provider';
   providers: [KyselyProvider],
   exports: [KYSELY_DB],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}

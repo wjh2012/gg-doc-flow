@@ -1,8 +1,8 @@
 import {
   ColumnType,
+  Insertable,
   JSONColumnType,
   Selectable,
-  Insertable,
   Updateable,
 } from 'kysely';
 

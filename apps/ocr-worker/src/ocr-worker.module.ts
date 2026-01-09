@@ -1,18 +1,9 @@
 import { Module } from '@nestjs/common';
-import { BullModule } from '@nestjs/bullmq';
 import { DatabaseModule } from '@app/database';
 import { DocFlowModule } from './worker/doc-flow.module';
+import { CommonQueueModule } from '@app/common-worker';
 
 @Module({
-  imports: [
-    BullModule.forRoot({
-      connection: {
-        host: 'localhost',
-        port: 6380,
-      },
-    }),
-    DatabaseModule,
-    DocFlowModule,
-  ],
+  imports: [CommonQueueModule, DatabaseModule, DocFlowModule],
 })
 export class OcrWorkerModule {}

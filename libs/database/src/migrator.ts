@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { promises as fs } from 'fs';
 import DatabaseDriver from 'better-sqlite3';
-import { Kysely, Migrator, SqliteDialect, FileMigrationProvider } from 'kysely';
+import { FileMigrationProvider, Kysely, Migrator, SqliteDialect } from 'kysely';
 import { Database } from './types/database.types';
 
 async function migrateToLatest() {

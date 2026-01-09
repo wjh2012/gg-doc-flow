@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '@app/database';
 import { BullModule } from '@nestjs/bullmq';
+import { DatabaseModule } from '@app/database';
 import { DocFlowQueueModule } from './infra/message/doc-flow-queue.module';
 import { TaskModule } from './task/task.module';
 import { ViewController } from './view/view.controller';

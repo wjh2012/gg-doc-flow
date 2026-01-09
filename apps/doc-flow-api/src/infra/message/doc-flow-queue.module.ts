@@ -1,15 +1,16 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { DocFlowQueueProducer } from './doc-flow-queue.producer';
+import { QUEUE_NAMES } from '@app/common-types';
 
 @Module({
   imports: [
     BullModule.registerQueue(
       {
-        name: 'ocr-queue',
+        name: QUEUE_NAMES.OCR,
       },
       {
-        name: 'obd-queue',
+        name: QUEUE_NAMES.OBJECT_DETECTION,
       },
     ),
   ],

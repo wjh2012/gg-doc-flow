@@ -1,4 +1,4 @@
-import { User, NewUser, UserUpdate } from '@app/database';
+import { NewUser, User, UserUpdate } from '@app/database';
 
 export abstract class IUserRepository {
   abstract findUserById(id: number): Promise<User | undefined>;

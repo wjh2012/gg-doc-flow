@@ -1,12 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { BullModule } from '@nestjs/bullmq';
 import { DocFlowWorker } from './doc-flow.worker';
 import { DocFlowService } from './doc-flow.service';
 import { DatabaseModule } from '@app/database';
+import { CommonQueueModule } from '@app/common-worker';
+import { QUEUE_NAMES } from '@app/common-types';
 
 @Module({
   imports: [
+    CommonQueueModule.register({
+      name: QUEUE_NAMES.OBJECT_DETECTION,
+    }),
     DatabaseModule,
 
     // microservice publisher
@@ -20,11 +24,6 @@ import { DatabaseModule } from '@app/database';
         },
       },
     ]),
-
-    // job queue 명시적 선언
-    BullModule.registerQueue({
-      name: 'obd-queue',
-    }),
   ],
   providers: [DocFlowWorker, DocFlowService],
 })

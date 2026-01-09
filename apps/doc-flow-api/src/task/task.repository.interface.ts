@@ -1,4 +1,4 @@
-import { Task, NewTask, TaskUpdate } from '@app/database';
+import { NewTask, Task, TaskUpdate } from '@app/database';
 
 export abstract class ITaskRepository {
   abstract findTaskById(id: string): Promise<Task | undefined>;

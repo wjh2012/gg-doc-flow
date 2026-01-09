@@ -1,35 +1,14 @@
-import { Processor, WorkerHost, OnWorkerEvent } from '@nestjs/bullmq';
 import { DocFlowService } from './doc-flow.service';
-import { Job } from 'bullmq';
-import { CreateDocJobPayload } from '@app/common-types';
+import { CreateDocJobPayload, QUEUE_NAMES } from '@app/common-types';
+import { BaseWorkerHost, WorkerProcessor } from '@app/common-worker';
 
-@Processor('ocr-queue')
-export class DocFlowWorker extends WorkerHost {
+@WorkerProcessor(QUEUE_NAMES.OCR)
+export class DocFlowWorker extends BaseWorkerHost<CreateDocJobPayload> {
   constructor(private readonly docFlowService: DocFlowService) {
     super();
   }
 
-  async process(job: Job<CreateDocJobPayload>) {
-    await this.docFlowService.processTask(job.data);
-  }
-
-  @OnWorkerEvent('active')
-  onActive(job: Job) {
-    console.log(`Job active ${job.id}`);
-  }
-
-  @OnWorkerEvent('completed')
-  onCompleted(job: Job) {
-    console.log(`Job completed ${job.id}`);
-  }
-
-  @OnWorkerEvent('failed')
-  onFailed(job: Job, err: any) {
-    console.log(`Job failed ${job.id}`, err);
-  }
-
-  @OnWorkerEvent('error')
-  onError(err: any) {
-    console.log(`Job error`, err);
+  async handle(data: CreateDocJobPayload) {
+    await this.docFlowService.processTask(data);
   }
 }

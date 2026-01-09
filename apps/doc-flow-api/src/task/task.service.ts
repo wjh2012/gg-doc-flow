@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DocFlowQueueProducer } from '../infra/message/doc-flow-queue.producer';
 import { ITaskRepository } from './task.repository.interface';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TaskType } from '@app/database';
 

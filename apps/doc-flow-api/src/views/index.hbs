@@ -2,245 +2,247 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <title>Task Dashboard</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            padding: 20px;
-        }
+  <meta charset="utf-8" />
+  <title>Task Dashboard</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        .controls {
-            margin-bottom: 20px;
-            padding: 20px;
-            background: #f5f5f5;
-            border-radius: 8px;
-        }
+    .controls {
+      margin-bottom: 20px;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 8px;
+    }
 
-        button {
-            padding: 10px 20px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
 
-        button:hover {
-            background: #0056b3;
-        }
+    button:hover {
+      background: #0056b3;
+    }
 
-        .task-container {
-            display: flex;
-            gap: 20px;
-        }
+    .task-container {
+      display: flex;
+      gap: 20px;
+    }
 
-        .task-column {
-            flex: 1;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-        }
+    .task-column {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+    }
 
-        .task-column h2 {
-            margin-top: 0;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-        }
+    .task-column h2 {
+      margin-top: 0;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
 
-        th,
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-            font-size: 0.9em;
-        }
+    th,
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+      font-size: 0.9em;
+    }
 
-        th {
-            background-color: #f8f9fa;
-        }
+    th {
+      background-color: #f8f9fa;
+    }
 
-        .status-SUCCESS {
-            color: green;
-            font-weight: bold;
-        }
+    .status-SUCCESS {
+      color: green;
+      font-weight: bold;
+    }
 
-        .status-PENDING {
-            color: orange;
-            font-weight: bold;
-        }
+    .status-PENDING {
+      color: orange;
+      font-weight: bold;
+    }
 
-        .status-FAILED {
-            color: red;
-            font-weight: bold;
-        }
+    .status-FAILED {
+      color: red;
+      font-weight: bold;
+    }
 
-        #connection-status {
-            margin-left: 10px;
-            font-size: 0.9em;
-            color: green;
-        }
-    </style>
+    #connection-status {
+      margin-left: 10px;
+      font-size: 0.9em;
+      color: green;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Task Dashboard</h1>
+<div class="container">
+  <h1>Task Dashboard</h1>
 
-        <div class="controls">
-            <button onclick="createTask('OCR')">Create OCR Task</button>
-            <button onclick="createTask('DETECTION')" style="background-color: #28a745;">Create Detection Task</button>
-            <span id="connection-status">Connecting to SSE...</span>
-        </div>
+  <div class="controls">
+    <button onclick="createTask('OCR')">Create OCR Task</button>
+    <button onclick="createTask('DETECTION')" style="background-color: #28a745;">Create Detection
+      Task
+    </button>
+    <span id="connection-status">Connecting to SSE...</span>
+  </div>
 
-        <div class="task-container">
-            <!-- OCR Column -->
-            <div class="task-column">
-                <h2>OCR Tasks</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ocr-list">
-                        <!-- OCR Tasks -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Detection Column -->
-            <div class="task-column">
-                <h2>Detection Tasks</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                        </tr>
-                    </thead>
-                    <tbody id="detection-list">
-                        <!-- Detection Tasks -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+  <div class="task-container">
+    <!-- OCR Column -->
+    <div class="task-column">
+      <h2>OCR Tasks</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody id="ocr-list">
+        <!-- OCR Tasks -->
+        </tbody>
+      </table>
     </div>
 
-    <script>
-        const statusSpan = document.getElementById('connection-status');
-        const ocrList = document.getElementById('ocr-list');
-        const detectionList = document.getElementById('detection-list');
+    <!-- Detection Column -->
+    <div class="task-column">
+      <h2>Detection Tasks</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody id="detection-list">
+        <!-- Detection Tasks -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-        // Initial Load (Recent 20 tasks)
-        async function loadRecentTasks() {
-            try {
-                const response = await fetch('/api/task/recent?limit=20');
-                const tasks = await response.json();
-                // Reverse to show newest at top (updateOrAddTask uses insertBefore)
-                // Actually server usually returns newest first? Assuming newest first.
-                // updateOrAddTask prepends. So if we iterate newest first, they will be in reverse order.
-                // We should iterate oldest to newest to have newest at top?
-                // Or if server returns [Newest, ..., Oldest], and we prepend:
-                // 1. Newest -> Row1
-                // 2. 2nd Newest -> Row2, Row1
-                // Result: Oldest at top.
-                // We want Newest at top.
-                // Server logic: findRecentTasks usually order by desc.
-                // So tasks[0] is Newest.
-                // If we iterate tasks:
-                // Prepend tasks[0] -> List: [Task0]
-                // Prepend tasks[1] -> List: [Task1, Task0]
-                // Result: Oldest at top (TaskN... Task0).
-                // So we need to iterate in reverse (Oldest to Newest) OR append instead of prepend for initial load?
-                // Let's just iterate reverse for initial load.
-                [...tasks].reverse().forEach(task => updateOrAddTask(task));
-            } catch (e) {
-                console.error('Failed to load recent tasks', e);
-            }
-        }
+<script>
+  const statusSpan = document.getElementById('connection-status');
+  const ocrList = document.getElementById('ocr-list');
+  const detectionList = document.getElementById('detection-list');
 
-        // Create Task
-        async function createTask(type) {
-            try {
-                const endpoint = type === 'OCR' ? '/api/task/ocr' : '/api/task/detection';
-                await fetch(endpoint, { method: 'POST' });
-                console.log(`${type} Task creation requested`);
-            } catch (e) {
-                alert(`Failed to create ${type} task`);
-            }
-        }
+  // Initial Load (Recent 20 tasks)
+  async function loadRecentTasks() {
+    try {
+      const response = await fetch('/api/task/recent?limit=20');
+      const tasks = await response.json();
+      // Reverse to show newest at top (updateOrAddTask uses insertBefore)
+      // Actually server usually returns newest first? Assuming newest first.
+      // updateOrAddTask prepends. So if we iterate newest first, they will be in reverse order.
+      // We should iterate oldest to newest to have newest at top?
+      // Or if server returns [Newest, ..., Oldest], and we prepend:
+      // 1. Newest -> Row1
+      // 2. 2nd Newest -> Row2, Row1
+      // Result: Oldest at top.
+      // We want Newest at top.
+      // Server logic: findRecentTasks usually order by desc.
+      // So tasks[0] is Newest.
+      // If we iterate tasks:
+      // Prepend tasks[0] -> List: [Task0]
+      // Prepend tasks[1] -> List: [Task1, Task0]
+      // Result: Oldest at top (TaskN... Task0).
+      // So we need to iterate in reverse (Oldest to Newest) OR append instead of prepend for initial load?
+      // Let's just iterate reverse for initial load.
+      [...tasks].reverse().forEach(task => updateOrAddTask(task));
+    } catch (e) {
+      console.error('Failed to load recent tasks', e);
+    }
+  }
 
-        // SSE Connection
-        const eventSource = new EventSource('/api/task/sse');
+  // Create Task
+  async function createTask(type) {
+    try {
+      const endpoint = type === 'OCR' ? '/api/task/ocr' : '/api/task/detection';
+      await fetch(endpoint, { method: 'POST' });
+      console.log(`${type} Task creation requested`);
+    } catch (e) {
+      alert(`Failed to create ${type} task`);
+    }
+  }
 
-        eventSource.onopen = () => {
-            statusSpan.textContent = 'Connected to Real-time Stream';
-            statusSpan.style.color = 'green';
-        };
+  // SSE Connection
+  const eventSource = new EventSource('/api/task/sse');
 
-        eventSource.onerror = () => {
-            statusSpan.textContent = 'Connection Lost (Reconnecting...)';
-            statusSpan.style.color = 'red';
-        };
+  eventSource.onopen = () => {
+    statusSpan.textContent = 'Connected to Real-time Stream';
+    statusSpan.style.color = 'green';
+  };
 
-        eventSource.onmessage = (event) => {
-            const task = JSON.parse(event.data);
-            console.log('Update received:', task);
-            updateOrAddTask(task);
+  eventSource.onerror = () => {
+    statusSpan.textContent = 'Connection Lost (Reconnecting...)';
+    statusSpan.style.color = 'red';
+  };
 
-            // Highlight effect
-            const row = document.getElementById(`row-${task.id}`);
-            if (row) {
-                row.style.backgroundColor = '#e8f5e9';
-                setTimeout(() => row.style.backgroundColor = '', 1000);
-            }
-        };
+  eventSource.onmessage = (event) => {
+    const task = JSON.parse(event.data);
+    console.log('Update received:', task);
+    updateOrAddTask(task);
 
-        function updateOrAddTask(task) {
-            const list = task.task_type === 'DETECTION' ? detectionList : ocrList;
-            const existingRow = document.getElementById(`row-${task.id}`);
+    // Highlight effect
+    const row = document.getElementById(`row-${task.id}`);
+    if (row) {
+      row.style.backgroundColor = '#e8f5e9';
+      setTimeout(() => row.style.backgroundColor = '', 1000);
+    }
+  };
 
-            const html = `
+  function updateOrAddTask(task) {
+    const list = task.task_type === 'DETECTION' ? detectionList : ocrList;
+    const existingRow = document.getElementById(`row-${task.id}`);
+
+    const html = `
                 <td>${task.id.substring(0, 8)}...</td>
                 <td class="status-${task.status}">${task.status}</td>
                 <td>${new Date(task.created_at).toLocaleString()}</td>
             `;
 
-            if (existingRow) {
-                existingRow.innerHTML = html;
-                // Move logic? If row exists, update it. It might be in the wrong list if type changed?
-                // Type shouldn't change.
-                // But just in case, ensure it is in the correct list?
-                // Assuming type doesn't change.
-                existingRow.innerHTML = html;
-            } else {
-                const row = document.createElement('tr');
-                row.id = `row-${task.id}`;
-                row.innerHTML = html;
-                // Prepend to show newest first
-                list.insertBefore(row, list.firstChild);
-            }
-        }
+    if (existingRow) {
+      existingRow.innerHTML = html;
+      // Move logic? If row exists, update it. It might be in the wrong list if type changed?
+      // Type shouldn't change.
+      // But just in case, ensure it is in the correct list?
+      // Assuming type doesn't change.
+      existingRow.innerHTML = html;
+    } else {
+      const row = document.createElement('tr');
+      row.id = `row-${task.id}`;
+      row.innerHTML = html;
+      // Prepend to show newest first
+      list.insertBefore(row, list.firstChild);
+    }
+  }
 
-        loadRecentTasks();
-    </script>
+  loadRecentTasks();
+</script>
 </body>
 
 </html>

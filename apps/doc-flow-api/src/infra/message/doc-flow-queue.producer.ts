@@ -1,17 +1,16 @@
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { Injectable } from '@nestjs/common';
-
-import { CreateDocJobPayload } from '@app/common-types';
+import { CreateDocJobPayload, QUEUE_NAMES } from '@app/common-types';
 
 @Injectable()
 export class DocFlowQueueProducer {
   constructor(
-    @InjectQueue('ocr-queue')
+    @InjectQueue(QUEUE_NAMES.OCR)
     private readonly ocrQueue: Queue,
-    @InjectQueue('obd-queue')
+    @InjectQueue(QUEUE_NAMES.OBJECT_DETECTION)
     private readonly obdQueue: Queue,
-  ) { }
+  ) {}
 
   async createOcrTask(payload: CreateDocJobPayload) {
     console.log('Adding create_document job to queue:', payload);

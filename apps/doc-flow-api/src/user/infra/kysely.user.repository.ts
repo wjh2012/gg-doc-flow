@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '../user.repository.interface';
-import { KYSELY_DB, Database, NewUser, User, UserUpdate } from '@app/database';
+import { Database, KYSELY_DB, NewUser, User, UserUpdate } from '@app/database';
 import { Kysely } from 'kysely';
 
 @Injectable()
 export class KyselyUserRepository implements IUserRepository {
-  constructor(@Inject(KYSELY_DB) private readonly db: Kysely<Database>) { }
+  constructor(@Inject(KYSELY_DB) private readonly db: Kysely<Database>) {}
 
   async findUserById(id: number): Promise<User | undefined> {
     return await this.db
