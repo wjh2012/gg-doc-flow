@@ -45,9 +45,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/doc-flow-api/src",
       "compilerOptions": {
-        "assets": [
-          "views/**/*"
-        ],
+        "assets": ["views/**/*"],
         "tsConfigPath": "apps/doc-flow-api/tsconfig.app.json"
       }
     },
@@ -67,6 +65,15 @@
       "sourceRoot": "apps/gg-gateway/src",
       "compilerOptions": {
         "tsConfigPath": "apps/gg-gateway/tsconfig.app.json"
+      }
+    },
+    "gg-user": {
+      "type": "application",
+      "root": "apps/gg-user",
+      "entryFile": "main",
+      "sourceRoot": "apps/gg-user/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gg-user/tsconfig.app.json"
       }
     },
     "object-detection-worker": {

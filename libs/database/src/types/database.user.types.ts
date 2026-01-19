@@ -2,15 +2,20 @@ import {
   ColumnType,
   Generated,
   Insertable,
-  JSONColumnType,
   Selectable,
   Updateable,
 } from 'kysely';
+
+export interface UserProfile {
+  avatar_url: string | null;
+  bio: string | null;
+}
 
 export interface UserTable {
   id: Generated<number>;
 
   email: string;
+  password: string;
   name: string;
 
   role: 'user' | 'admin';
@@ -18,10 +23,7 @@ export interface UserTable {
   created_at: ColumnType<Date, string | undefined, never>;
   updated_at: ColumnType<Date, string | undefined, string | undefined>;
 
-  profile: JSONColumnType<{
-    avatar_url: string | null;
-    bio: string | null;
-  }>;
+  profile: ColumnType<UserProfile, UserProfile, UserProfile>;
 }
 
 export type User = Selectable<UserTable>;
