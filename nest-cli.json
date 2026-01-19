@@ -51,6 +51,15 @@
         "tsConfigPath": "apps/doc-flow-api/tsconfig.app.json"
       }
     },
+    "gg-auth": {
+      "type": "application",
+      "root": "apps/gg-auth",
+      "entryFile": "main",
+      "sourceRoot": "apps/gg-auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gg-auth/tsconfig.app.json"
+      }
+    },
     "gg-gateway": {
       "type": "application",
       "root": "apps/gg-gateway",
