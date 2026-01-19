@@ -51,6 +51,15 @@
         "tsConfigPath": "apps/doc-flow-api/tsconfig.app.json"
       }
     },
+    "gg-gateway": {
+      "type": "application",
+      "root": "apps/gg-gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/gg-gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gg-gateway/tsconfig.app.json"
+      }
+    },
     "object-detection-worker": {
       "type": "application",
       "root": "apps/object-detection-worker",

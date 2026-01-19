@@ -23,6 +23,12 @@
     "noFallthroughCasesInSwitch": true,
     "strict": true,
     "paths": {
+      "@app/common-guard": [
+        "libs/common-guard/src"
+      ],
+      "@app/common-guard/*": [
+        "libs/common-guard/src/*"
+      ],
       "@app/common-logging": [
         "libs/common-logging/src"
       ],
