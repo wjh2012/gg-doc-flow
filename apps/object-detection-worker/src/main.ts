@@ -12,4 +12,4 @@ async function bootstrap() {
   );
   app.useLogger(app.get(Logger));
 }
-bootstrap();
+void bootstrap();

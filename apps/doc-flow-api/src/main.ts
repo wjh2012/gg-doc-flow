@@ -44,4 +44,4 @@ async function bootstrap() {
   await app.startAllMicroservices();
   await app.listen(process.env.PORT ?? 9000);
 }
-bootstrap();
+void bootstrap();
