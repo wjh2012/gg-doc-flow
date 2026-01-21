@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Task Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      background-color: #fcfcfc;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .controls {
+      margin-bottom: 20px;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 10px;
+      font-weight: 600;
+    }
+
+    /* 연결 상태 컨테이너 */
+    #connection-status {
+      margin-left: 15px;
+      font-size: 0.95em;
+      display: flex;
+    }
+
+    /* 개별 글자 기본 스타일 */
+    .wave-char {
+      display: inline-block;
+      font-weight: bold;
+      /* 진한 색이 기본이므로 불투명도 1.0 */
+      opacity: 1;
+      transition: opacity 0.5s;
+    }
+
+    /* 연결됨: 4초 주기로 은은하게 흐려지는 파도 */
+    .status-connected .wave-char {
+      color: #28a745;
+      animation: brightness-wave 4s infinite ease-in-out;
+    }
+
+    .status-disconnected .wave-char {
+      color: #dc3545;
+      opacity: 1;
+    }
+
+    /* 애니메이션: 1.0(진함) -> 0.4(흐림) -> 1.0(진함) */
+    @keyframes brightness-wave {
+      0%, 40%, 60%, 100% {
+        opacity: 1; /* 평소에는 진함 */
+        text-shadow: 0 0 2px rgba(40, 167, 69, 0.2); /* 은은한 기본 광택 */
+      }
+      50% {
+        opacity: 0.5; /* 파도가 지날 때 흐려짐 */
+        text-shadow: none;
+      }
+    }
+
+    /* 테이블 및 기타 스타일 */
+    .task-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .task-column {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #f0f0f0;
+      text-align: left;
+      font-size: 0.9em;
+    }
+
+    th {
+      background-color: #f8f9fa;
+      color: #666;
+    }
+
+    .status-SUCCESS {
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    .status-PENDING {
+      color: #fd7e14;
+      font-weight: bold;
+    }
+
+    .status-FAILED {
+      color: #dc3545;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h1>Task Management Dashboard</h1>
+
+  <div class="controls">
+    <button onclick="createTask('OCR')">Create OCR Task</button>
+    <button onclick="createTask('DETECTION')" style="background-color: #28a745;">Create Detection
+      Task
+    </button>
+    <div id="connection-status">Initializing...</div>
+  </div>
+
+  <div class="task-container">
+    <div class="task-column">
+      <h2>OCR Tasks</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody id="ocr-list"></tbody>
+      </table>
+    </div>
+
+    <div class="task-column">
+      <h2>Detection Tasks</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody id="detection-list"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  const statusSpan = document.getElementById('connection-status');
+  const ocrList = document.getElementById('ocr-list');
+  const detectionList = document.getElementById('detection-list');
+
+  function updateStatusText(text, isConnected) {
+    statusSpan.innerHTML = '';
+    statusSpan.className = isConnected ? 'status-connected' : 'status-disconnected';
+
+    text.split('').forEach((char, index) => {
+      const span = document.createElement('span');
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.className = 'wave-char';
+
+      if (isConnected) {
+        // 파도가 지나가는 간격 (0.15초)
+        span.style.animationDelay = `${index * 0.1}s`;
+      }
+
+      statusSpan.appendChild(span);
+    });
+  }
+
+  async function loadRecentTasks() {
+    try {
+      const response = await fetch('/api/task/recent?limit=20');
+      const tasks = await response.json();
+      [...tasks].reverse().forEach(task => updateOrAddTask(task));
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function createTask(type) {
+    const endpoint = type === 'OCR' ? '/api/task/ocr' : '/api/task/detection';
+    await fetch(endpoint, { method: 'POST' });
+  }
+
+  const eventSource = new EventSource('/api/task/sse');
+
+  eventSource.onopen = () => {
+    updateStatusText('● Connected to Real-time Stream', true);
+  };
+
+  eventSource.onerror = () => {
+    updateStatusText('● Connection Lost (Reconnecting...)', false);
+  };
+
+  eventSource.onmessage = (event) => {
+    const task = JSON.parse(event.data);
+    updateOrAddTask(task);
+    const row = document.getElementById(`row-${task.id}`);
+    if (row) {
+      row.style.backgroundColor = '#e8f5e9';
+      setTimeout(() => row.style.backgroundColor = '', 1000);
+    }
+  };
+
+  function updateOrAddTask(task) {
+    const list = task.task_type === 'DETECTION' ? detectionList : ocrList;
+    const existingRow = document.getElementById(`row-${task.id}`);
+    const html = `
+      <td><strong>${task.id.substring(0, 8)}</strong></td>
+      <td class="status-${task.status}">${task.status}</td>
+      <td>${new Date(task.created_at).toLocaleString()}</td>
+    `;
+
+    if (existingRow) {
+      existingRow.innerHTML = html;
+    } else {
+      const row = document.createElement('tr');
+      row.id = `row-${task.id}`;
+      row.innerHTML = html;
+      list.insertBefore(row, list.firstChild);
+    }
+  }
+
+  loadRecentTasks();
+</script>
+</body>
+</html>

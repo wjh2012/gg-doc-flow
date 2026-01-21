@@ -32,7 +32,9 @@
       "@app/common-worker": ["libs/common-worker/src"],
       "@app/common-worker/*": ["libs/common-worker/src/*"],
       "@app/database": ["libs/database/src"],
-      "@app/database/*": ["libs/database/src/*"]
+      "@app/database/*": ["libs/database/src/*"],
+      "@app/common-grpc": ["libs/common-grpc/src"],
+      "@app/common-grpc/*": ["libs/common-grpc/src/*"]
     }
   }
 }

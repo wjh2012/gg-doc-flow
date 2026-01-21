@@ -39,59 +39,78 @@
         "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
     },
-    "doc-doc": {
+    "common-guard": {
+      "type": "library",
+      "root": "libs/common-guard",
+      "entryFile": "index",
+      "sourceRoot": "libs/common-guard/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common-guard/tsconfig.lib.json"
+      }
+    },
+    "common-grpc": {
+      "type": "library",
+      "root": "libs/common-grpc",
+      "entryFile": "index",
+      "sourceRoot": "libs/common-grpc/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common-grpc/tsconfig.lib.json",
+        "assets": ["proto/**/*"]
+      }
+    },
+    "gg-doc-service-orchestrator": {
       "type": "application",
-      "root": "apps/doc-doc",
+      "root": "apps/gg-doc-service-orchestrator",
       "entryFile": "main",
-      "sourceRoot": "apps/doc-doc/src",
+      "sourceRoot": "apps/gg-doc-service-orchestrator/src",
       "compilerOptions": {
         "assets": ["views/**/*"],
-        "tsConfigPath": "apps/doc-doc/tsconfig.app.json"
+        "tsConfigPath": "apps/gg-doc-service-orchestrator/tsconfig.app.json"
       }
     },
-    "gg-auth": {
+    "gg-doc-service-auth": {
       "type": "application",
-      "root": "apps/gg-auth",
+      "root": "apps/gg-doc-service-auth",
       "entryFile": "main",
-      "sourceRoot": "apps/gg-auth/src",
+      "sourceRoot": "apps/gg-doc-service-auth/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gg-auth/tsconfig.app.json"
+        "tsConfigPath": "apps/gg-doc-service-auth/tsconfig.app.json"
       }
     },
-    "gg-gateway": {
+    "gg-doc-api": {
       "type": "application",
-      "root": "apps/gg-gateway",
+      "root": "apps/gg-doc-api",
       "entryFile": "main",
-      "sourceRoot": "apps/gg-gateway/src",
+      "sourceRoot": "apps/gg-doc-api/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gg-gateway/tsconfig.app.json"
+        "tsConfigPath": "apps/gg-doc-api/tsconfig.app.json"
       }
     },
-    "gg-user": {
+    "gg-doc-service-user": {
       "type": "application",
-      "root": "apps/gg-user",
+      "root": "apps/gg-doc-service-user",
       "entryFile": "main",
-      "sourceRoot": "apps/gg-user/src",
+      "sourceRoot": "apps/gg-doc-service-user/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gg-user/tsconfig.app.json"
+        "tsConfigPath": "apps/gg-doc-service-user/tsconfig.app.json"
       }
     },
-    "gg-detection-worker": {
+    "gg-doc-worker-detection": {
       "type": "application",
-      "root": "apps/gg-detection-worker",
+      "root": "apps/gg-doc-worker-detection",
       "entryFile": "main",
-      "sourceRoot": "apps/gg-detection-worker/src",
+      "sourceRoot": "apps/gg-doc-worker-detection/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gg-detection-worker/tsconfig.app.json"
+        "tsConfigPath": "apps/gg-doc-worker-detection/tsconfig.app.json"
       }
     },
-    "gg-ocr-worker": {
+    "gg-doc-worker-ocr": {
       "type": "application",
-      "root": "apps/gg-ocr-worker",
+      "root": "apps/gg-doc-worker-ocr",
       "entryFile": "main",
-      "sourceRoot": "apps/gg-ocr-worker/src",
+      "sourceRoot": "apps/gg-doc-worker-ocr/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gg-ocr-worker/tsconfig.app.json"
+        "tsConfigPath": "apps/gg-doc-worker-ocr/tsconfig.app.json"
       }
     }
   },

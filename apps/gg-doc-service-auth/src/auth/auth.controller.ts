@@ -1,0 +1,18 @@
+import { Controller } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
+import { AuthService } from './auth.service';
+
+@Controller()
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
+  @MessagePattern({ cmd: 'signup' })
+  async signup(data: { email: string; password: string; name: string }) {
+    return this.authService.signup(data.email, data.password, data.name);
+  }
+
+  @MessagePattern({ cmd: 'login' })
+  async login(data: { email: string; password: string }) {
+    return this.authService.login(data.email, data.password);
+  }
+}

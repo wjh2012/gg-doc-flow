@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package ocr;
+
+service OcrEngine {
+  rpc ExtractText (OcrRequest) returns (OcrResponse);
+  rpc ExtractTextStream (OcrRequest) returns (stream OcrChunk);
+}
+
+message OcrRequest {
+  string task_id = 1;
+  string image_url = 2;
+  string language = 3;
+  OcrOptions options = 4;
+}
+
+message OcrOptions {
+  bool detect_orientation = 1;
+  bool enhance_image = 2;
+  string output_format = 3;
+}
+
+message OcrResponse {
+  string task_id = 1;
+  bool success = 2;
+  string text = 3;
+  float confidence = 4;
+  repeated TextRegion regions = 5;
+  string error_message = 6;
+}
+
+message OcrChunk {
+  string task_id = 1;
+  string partial_text = 2;
+  float progress = 3;
+}
+
+message TextRegion {
+  string text = 1;
+  float confidence = 2;
+  BoundingBox bbox = 3;
+}
+
+message BoundingBox {
+  int32 x = 1;
+  int32 y = 2;
+  int32 width = 3;
+  int32 height = 4;
+}
