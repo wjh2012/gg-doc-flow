@@ -1,5 +1,5 @@
 import { initInstrumentation } from '@app/common-logging/otel/instrumentation';
-initInstrumentation('doc-flow-api');
+initInstrumentation('gg-doc');
 
 import { RequestMethod } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -18,7 +18,7 @@ async function bootstrap() {
 
   // web-ui
   app.useStaticAssets(join(__dirname, '..', 'public'));
-  app.setBaseViewsDir(join(process.cwd(), 'dist/apps/doc-flow-api/views'));
+  app.setBaseViewsDir(join(process.cwd(), 'dist/apps/gg-doc/views'));
   app.setViewEngine('hbs');
 
   // microservice listener

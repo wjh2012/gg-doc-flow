@@ -1,12 +1,12 @@
 import { initInstrumentation } from '@app/common-logging/otel/instrumentation';
-initInstrumentation('ocr-worker');
+initInstrumentation('gg-ocr-worker');
 
 import { NestFactory } from '@nestjs/core';
-import { OcrWorkerModule } from './ocr-worker.module';
 import { Logger } from '@app/common-logging';
+import { GgOcrWorkerModule } from './gg-ocr-worker.module';
 
 async function bootstrap() {
-  const app = await NestFactory.createApplicationContext(OcrWorkerModule, {
+  const app = await NestFactory.createApplicationContext(GgOcrWorkerModule, {
     bufferLogs: true,
   });
   app.useLogger(app.get(Logger));

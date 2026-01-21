@@ -39,14 +39,14 @@
         "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
     },
-    "doc-flow-api": {
+    "doc-doc": {
       "type": "application",
-      "root": "apps/doc-flow-api",
+      "root": "apps/doc-doc",
       "entryFile": "main",
-      "sourceRoot": "apps/doc-flow-api/src",
+      "sourceRoot": "apps/doc-doc/src",
       "compilerOptions": {
         "assets": ["views/**/*"],
-        "tsConfigPath": "apps/doc-flow-api/tsconfig.app.json"
+        "tsConfigPath": "apps/doc-doc/tsconfig.app.json"
       }
     },
     "gg-auth": {
@@ -76,22 +76,22 @@
         "tsConfigPath": "apps/gg-user/tsconfig.app.json"
       }
     },
-    "object-detection-worker": {
+    "gg-detection-worker": {
       "type": "application",
-      "root": "apps/object-detection-worker",
+      "root": "apps/gg-detection-worker",
       "entryFile": "main",
-      "sourceRoot": "apps/object-detection-worker/src",
+      "sourceRoot": "apps/gg-detection-worker/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/object-detection-worker/tsconfig.app.json"
+        "tsConfigPath": "apps/gg-detection-worker/tsconfig.app.json"
       }
     },
-    "ocr-worker": {
+    "gg-ocr-worker": {
       "type": "application",
-      "root": "apps/ocr-worker",
+      "root": "apps/gg-ocr-worker",
       "entryFile": "main",
-      "sourceRoot": "apps/ocr-worker/src",
+      "sourceRoot": "apps/gg-ocr-worker/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/ocr-worker/tsconfig.app.json"
+        "tsConfigPath": "apps/gg-ocr-worker/tsconfig.app.json"
       }
     }
   },

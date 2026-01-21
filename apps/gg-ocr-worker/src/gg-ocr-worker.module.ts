@@ -12,4 +12,4 @@ import { CommonLoggerModule } from '@app/common-logging';
     DocFlowModule,
   ],
 })
-export class OcrWorkerModule {}
+export class GgOcrWorkerModule {}

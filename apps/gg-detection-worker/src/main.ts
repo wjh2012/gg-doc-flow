@@ -1,13 +1,13 @@
 import { initInstrumentation } from '@app/common-logging/otel/instrumentation';
-initInstrumentation('object-detection-worker');
+initInstrumentation('gg-detection-worker');
 
 import { NestFactory } from '@nestjs/core';
-import { ObjectDetectionWorkerModule } from './object-detection-worker.module';
 import { Logger } from '@app/common-logging';
+import { GgDetectionWorkerModule } from './gg-detection-worker.module';
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(
-    ObjectDetectionWorkerModule,
+    GgDetectionWorkerModule,
     { bufferLogs: true },
   );
   app.useLogger(app.get(Logger));
