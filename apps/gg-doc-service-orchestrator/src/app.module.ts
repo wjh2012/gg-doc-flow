@@ -3,6 +3,7 @@ import { BullModule } from '@nestjs/bullmq';
 import { DatabaseModule } from '@app/database';
 import { DocFlowQueueModule } from './infra/message/doc-flow-queue.module';
 import { TaskModule } from './task/task.module';
+import { CommonLoggerModule } from '@app/common-logging';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { TaskModule } from './task/task.module';
       },
     }),
     DocFlowQueueModule,
+    CommonLoggerModule,
   ],
 })
 export class AppModule {}

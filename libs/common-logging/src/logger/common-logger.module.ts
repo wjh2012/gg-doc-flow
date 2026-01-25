@@ -1,4 +1,4 @@
-import { Global, Module, DynamicModule } from '@nestjs/common';
+import { DynamicModule, Global, Module } from '@nestjs/common';
 import { LoggerModule, Params } from 'nestjs-pino';
 
 const defaultConfig: Params = {
@@ -8,7 +8,10 @@ const defaultConfig: Params = {
 };
 
 @Global()
-@Module({})
+@Module({
+  imports: [LoggerModule.forRoot(defaultConfig)],
+  exports: [LoggerModule],
+})
 export class CommonLoggerModule {
   static forRoot(config?: Params): DynamicModule {
     return {
