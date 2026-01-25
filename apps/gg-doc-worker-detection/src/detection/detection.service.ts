@@ -5,7 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { CreateDocJobPayload } from '@app/common-types';
 import { KYSELY_DB, WorkerDatabase } from '@app/database';
 import { BaseDocFlowService } from '@app/common-worker';
-import { DetectionGrpcClient } from '@app/common-grpc';
+import { DetectionGrpcClient } from '@app/detection-client';
 
 @Injectable()
 export class DetectionService extends BaseDocFlowService {

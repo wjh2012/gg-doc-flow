@@ -48,14 +48,28 @@
         "tsConfigPath": "libs/common-guard/tsconfig.lib.json"
       }
     },
-    "common-grpc": {
+    "ocr-client": {
       "type": "library",
-      "root": "libs/common-grpc",
+      "root": "libs/ocr-client",
       "entryFile": "index",
-      "sourceRoot": "libs/common-grpc/src",
+      "sourceRoot": "libs/ocr-client/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/common-grpc/tsconfig.lib.json",
-        "assets": ["proto/**/*"]
+        "tsConfigPath": "libs/ocr-client/tsconfig.lib.json",
+        "assets": [
+          "proto/**/*"
+        ]
+      }
+    },
+    "detection-client": {
+      "type": "library",
+      "root": "libs/detection-client",
+      "entryFile": "index",
+      "sourceRoot": "libs/detection-client/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/detection-client/tsconfig.lib.json",
+        "assets": [
+          "proto/**/*"
+        ]
       }
     },
     "gg-doc-service-orchestrator": {
@@ -64,7 +78,9 @@
       "entryFile": "main",
       "sourceRoot": "apps/gg-doc-service-orchestrator/src",
       "compilerOptions": {
-        "assets": ["views/**/*"],
+        "assets": [
+          "views/**/*"
+        ],
         "tsConfigPath": "apps/gg-doc-service-orchestrator/tsconfig.app.json"
       }
     },

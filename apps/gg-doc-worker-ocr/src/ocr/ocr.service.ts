@@ -5,7 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { CreateDocJobPayload } from '@app/common-types';
 import { KYSELY_DB, WorkerDatabase } from '@app/database';
 import { BaseDocFlowService } from '@app/common-worker';
-import { OcrGrpcClient } from '@app/common-grpc';
+import { OcrGrpcClient } from '@app/ocr-client';
 
 @Injectable()
 export class OcrService extends BaseDocFlowService {

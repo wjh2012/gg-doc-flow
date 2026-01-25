@@ -23,18 +23,48 @@
     "noFallthroughCasesInSwitch": true,
     "strict": true,
     "paths": {
-      "@app/common-guard": ["libs/common-guard/src"],
-      "@app/common-guard/*": ["libs/common-guard/src/*"],
-      "@app/common-logging": ["libs/common-logging/src"],
-      "@app/common-logging/*": ["libs/common-logging/src/*"],
-      "@app/common-types": ["libs/common-types/src"],
-      "@app/common-types/*": ["libs/common-types/src/*"],
-      "@app/common-worker": ["libs/common-worker/src"],
-      "@app/common-worker/*": ["libs/common-worker/src/*"],
-      "@app/database": ["libs/database/src"],
-      "@app/database/*": ["libs/database/src/*"],
-      "@app/common-grpc": ["libs/common-grpc/src"],
-      "@app/common-grpc/*": ["libs/common-grpc/src/*"]
+      "@app/common-guard": [
+        "libs/common-guard/src"
+      ],
+      "@app/common-guard/*": [
+        "libs/common-guard/src/*"
+      ],
+      "@app/common-logging": [
+        "libs/common-logging/src"
+      ],
+      "@app/common-logging/*": [
+        "libs/common-logging/src/*"
+      ],
+      "@app/common-types": [
+        "libs/common-types/src"
+      ],
+      "@app/common-types/*": [
+        "libs/common-types/src/*"
+      ],
+      "@app/common-worker": [
+        "libs/common-worker/src"
+      ],
+      "@app/common-worker/*": [
+        "libs/common-worker/src/*"
+      ],
+      "@app/database": [
+        "libs/database/src"
+      ],
+      "@app/database/*": [
+        "libs/database/src/*"
+      ],
+      "@app/ocr-client": [
+        "libs/ocr-client/src"
+      ],
+      "@app/ocr-client/*": [
+        "libs/ocr-client/src/*"
+      ],
+      "@app/detection-client": [
+        "libs/detection-client/src"
+      ],
+      "@app/detection-client/*": [
+        "libs/detection-client/src/*"
+      ]
     }
   }
 }

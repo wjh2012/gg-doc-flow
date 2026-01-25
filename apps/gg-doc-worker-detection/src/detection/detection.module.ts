@@ -5,7 +5,7 @@ import { DetectionService } from './detection.service';
 import { DatabaseModule } from '@app/database';
 import { CommonQueueModule } from '@app/common-worker';
 import { CommonLoggerModule } from '@app/common-logging';
-import { CommonGrpcModule } from '@app/common-grpc';
+import { DetectionClientModule } from '@app/detection-client';
 import { QUEUE_NAMES } from '@app/common-types';
 
 @Module({
@@ -15,7 +15,7 @@ import { QUEUE_NAMES } from '@app/common-types';
     }),
     CommonLoggerModule,
     DatabaseModule,
-    CommonGrpcModule.forDetection(),
+    DetectionClientModule.register(),
     ClientsModule.register([
       {
         name: 'TASK_SERVICE',
@@ -29,4 +29,4 @@ import { QUEUE_NAMES } from '@app/common-types';
   ],
   providers: [DetectionWorker, DetectionService],
 })
-export class DetectionModule {}
+export class DetectionModule { }

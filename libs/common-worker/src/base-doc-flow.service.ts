@@ -10,7 +10,7 @@ export abstract class BaseDocFlowService implements OnModuleInit {
   constructor(
     @Inject(KYSELY_DB) protected readonly db: Kysely<WorkerDatabase>,
     @Inject('TASK_SERVICE') protected readonly client: ClientProxy,
-  ) {}
+  ) { }
 
   async onModuleInit() {
     try {
@@ -24,7 +24,7 @@ export abstract class BaseDocFlowService implements OnModuleInit {
     this.logger.log(`작업 시작: ${data.docId}`);
 
     try {
-      await this.updateJobStatus(data.docId, 'PROCESSING');
+      await this.updateJobStatus(data.docId, 'RUNNING');
       await this.executeTask(data);
       await this.updateJobStatus(data.docId, 'SUCCESS');
     } catch (error) {
