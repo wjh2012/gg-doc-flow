@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { UserService } from './user.service';
-import type { CreateUserDto, UserWithPassword } from '@app/common-types';
+import type { CreateUserDto, UserWithPassword } from '@app/database';
 
 @Controller()
 export class UserController {

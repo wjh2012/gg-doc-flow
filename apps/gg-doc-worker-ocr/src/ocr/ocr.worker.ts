@@ -1,6 +1,10 @@
 import { OcrService } from './ocr.service';
-import { CreateDocJobPayload, QUEUE_NAMES } from '@app/common-types';
-import { BaseWorkerHost, WorkerProcessor } from '@app/common-worker';
+import {
+  BaseWorkerHost,
+  CreateDocJobPayload,
+  QUEUE_NAMES,
+  WorkerProcessor,
+} from '@app/common-worker';
 
 @WorkerProcessor(QUEUE_NAMES.OCR)
 export class OcrWorker extends BaseWorkerHost<CreateDocJobPayload> {

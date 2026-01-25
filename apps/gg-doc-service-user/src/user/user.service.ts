@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IUserRepository } from './user.repository.interface';
-import type { CreateUserDto, UserWithPassword } from '@app/common-types';
+import type { CreateUserDto, UserWithPassword } from '@app/database';
 
 @Injectable()
 export class UserService {

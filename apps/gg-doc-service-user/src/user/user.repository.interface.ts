@@ -2,7 +2,7 @@ import type {
   CreateUserDto,
   UpdateUserDto,
   UserWithPassword,
-} from '@app/common-types';
+} from '@app/database';
 
 export abstract class IUserRepository {
   abstract findUserById(id: number): Promise<UserWithPassword | undefined>;

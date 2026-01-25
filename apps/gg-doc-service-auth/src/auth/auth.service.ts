@@ -13,7 +13,7 @@ import {
   CreateUserDto,
   JwtPayload,
   UserWithPassword,
-} from '@app/common-types';
+} from '@app/database';
 
 @Injectable()
 export class AuthService {

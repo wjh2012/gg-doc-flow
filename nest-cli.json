@@ -12,15 +12,6 @@
         "tsConfigPath": "libs/common-logging/tsconfig.lib.json"
       }
     },
-    "common-types": {
-      "type": "library",
-      "root": "libs/common-types",
-      "entryFile": "index",
-      "sourceRoot": "libs/common-types/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/common-types/tsconfig.lib.json"
-      }
-    },
     "common-worker": {
       "type": "library",
       "root": "libs/common-worker",
@@ -39,15 +30,6 @@
         "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
     },
-    "common-guard": {
-      "type": "library",
-      "root": "libs/common-guard",
-      "entryFile": "index",
-      "sourceRoot": "libs/common-guard/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/common-guard/tsconfig.lib.json"
-      }
-    },
     "ocr-client": {
       "type": "library",
       "root": "libs/ocr-client",
@@ -55,9 +37,7 @@
       "sourceRoot": "libs/ocr-client/src",
       "compilerOptions": {
         "tsConfigPath": "libs/ocr-client/tsconfig.lib.json",
-        "assets": [
-          "proto/**/*"
-        ]
+        "assets": ["proto/**/*"]
       }
     },
     "detection-client": {
@@ -67,9 +47,7 @@
       "sourceRoot": "libs/detection-client/src",
       "compilerOptions": {
         "tsConfigPath": "libs/detection-client/tsconfig.lib.json",
-        "assets": [
-          "proto/**/*"
-        ]
+        "assets": ["proto/**/*"]
       }
     },
     "gg-doc-service-orchestrator": {
@@ -78,9 +56,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/gg-doc-service-orchestrator/src",
       "compilerOptions": {
-        "assets": [
-          "views/**/*"
-        ],
+        "assets": ["views/**/*"],
         "tsConfigPath": "apps/gg-doc-service-orchestrator/tsconfig.app.json"
       }
     },
@@ -117,7 +93,14 @@
       "entryFile": "main",
       "sourceRoot": "apps/gg-doc-worker-detection/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gg-doc-worker-detection/tsconfig.app.json"
+        "tsConfigPath": "apps/gg-doc-worker-detection/tsconfig.app.json",
+        "assets": [
+          {
+            "include": "../../../libs/detection-client/src/proto/**/*",
+            "outDir": "dist/apps/gg-doc-worker-detection",
+            "watchAssets": true
+          }
+        ]
       }
     },
     "gg-doc-worker-ocr": {
@@ -126,7 +109,14 @@
       "entryFile": "main",
       "sourceRoot": "apps/gg-doc-worker-ocr/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gg-doc-worker-ocr/tsconfig.app.json"
+        "tsConfigPath": "apps/gg-doc-worker-ocr/tsconfig.app.json",
+        "assets": [
+          {
+            "include": "../../../libs/ocr-client/src/proto/**/*",
+            "outDir": "dist/apps/gg-doc-worker-ocr",
+            "watchAssets": true
+          }
+        ]
       }
     }
   },

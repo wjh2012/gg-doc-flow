@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/doc-doc/test/jest-e2e.json",
-    "db:migrate": "ts-node libs/database/src/migrator.ts"
+    "db:migrate": "ts-node libs/database/src/migrator.ts",
+    "start:all": "concurrently \"nest start --watch gg-doc-api\" \"nest start --watch gg-doc-service-auth\" \"nest start --watch gg-doc-service-user\" \"nest start --watch gg-doc-service-orchestrator\" \"nest start --watch gg-doc-worker-ocr\" \"nest start --watch gg-doc-worker-detection\""
   },
   "dependencies": {
     "@fastify/http-proxy": "^11.4.1",
@@ -70,6 +71,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^22.10.7",
     "@types/supertest": "^6.0.2",
+    "concurrently": "^9.2.1",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-import-resolver-typescript": "^4.4.4",
@@ -109,8 +111,6 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/common-guard(|/.*)$": "<rootDir>/libs/common-guard/src/$1",
-      "^@app/common-types(|/.*)$": "<rootDir>/libs/common-types/src/$1",
       "^@app/common-worker(|/.*)$": "<rootDir>/libs/common-worker/src/$1",
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1"
     }

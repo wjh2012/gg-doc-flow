@@ -1,7 +1,7 @@
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { Injectable } from '@nestjs/common';
-import { CreateDocJobPayload, QUEUE_NAMES } from '@app/common-types';
+import { CreateDocJobPayload, QUEUE_NAMES } from '@app/common-worker';
 
 @Injectable()
 export class DocFlowQueueProducer {

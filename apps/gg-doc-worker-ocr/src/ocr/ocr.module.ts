@@ -3,10 +3,9 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { OcrWorker } from './ocr.worker';
 import { OcrService } from './ocr.service';
 import { DatabaseModule } from '@app/database';
-import { CommonQueueModule } from '@app/common-worker';
+import { CommonQueueModule, QUEUE_NAMES } from '@app/common-worker';
 import { CommonLoggerModule } from '@app/common-logging';
 import { OcrClientModule } from '@app/ocr-client';
-import { QUEUE_NAMES } from '@app/common-types';
 
 @Module({
   imports: [
@@ -29,4 +28,4 @@ import { QUEUE_NAMES } from '@app/common-types';
   ],
   providers: [OcrWorker, OcrService],
 })
-export class OcrModule { }
+export class OcrModule {}

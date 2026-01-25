@@ -3,10 +3,9 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { DetectionWorker } from './detection.worker';
 import { DetectionService } from './detection.service';
 import { DatabaseModule } from '@app/database';
-import { CommonQueueModule } from '@app/common-worker';
+import { CommonQueueModule, QUEUE_NAMES } from '@app/common-worker';
 import { CommonLoggerModule } from '@app/common-logging';
 import { DetectionClientModule } from '@app/detection-client';
-import { QUEUE_NAMES } from '@app/common-types';
 
 @Module({
   imports: [
@@ -29,4 +28,4 @@ import { QUEUE_NAMES } from '@app/common-types';
   ],
   providers: [DetectionWorker, DetectionService],
 })
-export class DetectionModule { }
+export class DetectionModule {}

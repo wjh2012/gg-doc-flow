@@ -1,12 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '../user.repository.interface';
-import { Database, KYSELY_DB, NewUser, UserUpdate } from '@app/database';
-import { Kysely } from 'kysely';
-import type {
+import {
   CreateUserDto,
+  Database,
+  KYSELY_DB,
+  NewUser,
   UpdateUserDto,
+  UserUpdate,
   UserWithPassword,
-} from '@app/common-types';
+} from '@app/database';
+import { Kysely } from 'kysely';
 
 @Injectable()
 export class KyselyUserRepository implements IUserRepository {

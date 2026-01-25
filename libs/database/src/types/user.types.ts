@@ -1,9 +1,8 @@
+import { UserProfile } from './database.user.types';
+
 export type UserRole = 'user' | 'admin';
 
-export interface UserProfile {
-  avatar_url: string | null;
-  bio: string | null;
-}
+export { type UserProfile };
 
 /**
  * 도메인/API용 User 엔티티 (password 제외)

@@ -1,7 +1,7 @@
 import { Inject, Logger, OnModuleInit } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { Kysely } from 'kysely';
-import { CreateDocJobPayload } from '@app/common-types';
+import { CreateDocJobPayload } from './interfaces/create-doc-job.payload';
 import { KYSELY_DB, TaskStatus, WorkerDatabase } from '@app/database';
 
 export abstract class BaseDocFlowService implements OnModuleInit {
@@ -10,7 +10,7 @@ export abstract class BaseDocFlowService implements OnModuleInit {
   constructor(
     @Inject(KYSELY_DB) protected readonly db: Kysely<WorkerDatabase>,
     @Inject('TASK_SERVICE') protected readonly client: ClientProxy,
-  ) { }
+  ) {}
 
   async onModuleInit() {
     try {

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { DocFlowQueueProducer } from './doc-flow-queue.producer';
-import { QUEUE_NAMES } from '@app/common-types';
+import { QUEUE_NAMES } from '@app/common-worker';
 
 @Module({
   imports: [

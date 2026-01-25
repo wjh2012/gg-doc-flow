@@ -2,9 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { Kysely } from 'kysely';
 import { firstValueFrom } from 'rxjs';
-import { CreateDocJobPayload } from '@app/common-types';
 import { KYSELY_DB, WorkerDatabase } from '@app/database';
-import { BaseDocFlowService } from '@app/common-worker';
+import { BaseDocFlowService, CreateDocJobPayload } from '@app/common-worker';
 import { DetectionGrpcClient } from '@app/detection-client';
 
 @Injectable()
